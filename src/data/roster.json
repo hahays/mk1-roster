@@ -1,0 +1,721 @@
+[
+  {
+    "id": "fighter-t-1000",
+    "slug": "t-1000",
+    "name": "T-1000",
+    "group": "fighter",
+    "image": "/fighters/main/t-1000.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/t-1000/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-conan",
+    "slug": "conan",
+    "name": "CONAN THE BARBARIAN",
+    "group": "fighter",
+    "image": "/fighters/main/conan.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/conan/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-ghostface",
+    "slug": "ghostface",
+    "name": "GHOST FACE",
+    "group": "fighter",
+    "image": "/fighters/main/ghostface.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/ghostface/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-noob-saibot",
+    "slug": "noob-saibot",
+    "name": "NOOB SAIBOT",
+    "group": "fighter",
+    "image": "/fighters/main/noob-saibot.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/noob-saibot/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-cyrax",
+    "slug": "cyrax",
+    "name": "CYRAX",
+    "group": "fighter",
+    "image": "/fighters/main/cyrax.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/cyrax/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-sektor",
+    "slug": "sektor",
+    "name": "SEKTOR",
+    "group": "fighter",
+    "image": "/fighters/main/sektor.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/sektor/thumb.webp",
+    "categories": [
+      "expansion",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-takeda",
+    "slug": "takeda",
+    "name": "TAKEDA",
+    "group": "fighter",
+    "image": "/fighters/main/takeda.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/takeda/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-homelander",
+    "slug": "homelander",
+    "name": "HOMELANDER",
+    "group": "fighter",
+    "image": "/fighters/main/homelander.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/homelander/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-ermac",
+    "slug": "ermac",
+    "name": "ERMAC",
+    "group": "fighter",
+    "image": "/fighters/main/ermac.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/ermac/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-peacemaker",
+    "slug": "peacemaker",
+    "name": "PEACEMAKER",
+    "group": "fighter",
+    "image": "/fighters/main/peacemaker.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/peacemaker/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-quan-chi",
+    "slug": "quan-chi",
+    "name": "QUAN CHI",
+    "group": "fighter",
+    "image": "/fighters/main/quan-chi.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/quan-chi/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-omni-man",
+    "slug": "omni-man",
+    "name": "OMNI-MAN",
+    "group": "fighter",
+    "image": "/fighters/main/omni-man.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/omni-man/thumb.webp",
+    "categories": [
+      "kombat-pack",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-reiko",
+    "slug": "reiko",
+    "name": "REIKO",
+    "group": "fighter",
+    "image": "/fighters/main/reiko.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/reiko/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-shang-tsung",
+    "slug": "shang-tsung",
+    "name": "SHANG TSUNG",
+    "group": "fighter",
+    "image": "/fighters/main/shang-tsung.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/shang-tsung/thumb.webp",
+    "categories": [
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-nitara",
+    "slug": "nitara",
+    "name": "NITARA",
+    "group": "fighter",
+    "image": "/fighters/main/nitara.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/nitara/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-shao-kahn",
+    "slug": "shao-kahn",
+    "name": "GENERAL SHAO",
+    "group": "fighter",
+    "image": "/fighters/main/shao-kahn.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/shao-kahn/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-sindel",
+    "slug": "sindel",
+    "name": "SINDEL",
+    "group": "fighter",
+    "image": "/fighters/main/sindel.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/sindel/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-ashrah",
+    "slug": "ashrah",
+    "name": "ASHRAH",
+    "group": "fighter",
+    "image": "/fighters/main/ashrah.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/ashrah/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-havik",
+    "slug": "havik",
+    "name": "HAVIK",
+    "group": "fighter",
+    "image": "/fighters/main/havik.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/havik/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-reptile",
+    "slug": "reptile",
+    "name": "REPTILE",
+    "group": "fighter",
+    "image": "/fighters/main/reptile.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/reptile/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-geras",
+    "slug": "geras",
+    "name": "GERAS",
+    "group": "fighter",
+    "image": "/fighters/main/geras.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/geras/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-tanya",
+    "slug": "tanya",
+    "name": "TANYA",
+    "group": "fighter",
+    "image": "/fighters/main/tanya.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/tanya/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-baraka",
+    "slug": "baraka",
+    "name": "BARAKA",
+    "group": "fighter",
+    "image": "/fighters/main/baraka.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/baraka/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-li-mei",
+    "slug": "li-mei",
+    "name": "LI MEI",
+    "group": "fighter",
+    "image": "/fighters/main/li-mei.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/li-mei/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-smoke",
+    "slug": "smoke",
+    "name": "SMOKE",
+    "group": "fighter",
+    "image": "/fighters/main/smoke.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/smoke/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-rain",
+    "slug": "rain",
+    "name": "RAIN",
+    "group": "fighter",
+    "image": "/fighters/main/rain.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/rain/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-raiden",
+    "slug": "raiden",
+    "name": "RAIDEN",
+    "group": "fighter",
+    "image": "/fighters/main/raiden.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/raiden/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-mileena",
+    "slug": "mileena",
+    "name": "MILEENA",
+    "group": "fighter",
+    "image": "/fighters/main/mileena.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/mileena/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-kung-lao",
+    "slug": "kung-lao",
+    "name": "KUNG LAO",
+    "group": "fighter",
+    "image": "/fighters/main/kung-lao.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kung-lao/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-kenshi-takahashi",
+    "slug": "kenshi-takahashi",
+    "name": "KENSHI TAKAHASHI",
+    "group": "fighter",
+    "image": "/fighters/main/kenshi-takahashi.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kenshi-takahashi/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-johnny-cage",
+    "slug": "johnny-cage",
+    "name": "JOHNNY CAGE",
+    "group": "fighter",
+    "image": "/fighters/main/johnny-cage.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/johnny-cage/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-kitana",
+    "slug": "kitana",
+    "name": "KITANA",
+    "group": "fighter",
+    "image": "/fighters/main/kitana.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kitana/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-scorpion",
+    "slug": "scorpion",
+    "name": "SCORPION",
+    "group": "fighter",
+    "image": "/fighters/main/scorpion.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/scorpion/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-sub-zero",
+    "slug": "sub-zero",
+    "name": "SUB-ZERO",
+    "group": "fighter",
+    "image": "/fighters/main/sub-zero.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/sub-zero/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "fighter-liu-kang",
+    "slug": "liu-kang",
+    "name": "LIU KANG",
+    "group": "fighter",
+    "image": "/fighters/main/liu-kang.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/liu-kang/thumb.webp",
+    "categories": [
+      "base",
+      "kollection",
+      "definitive",
+      "all"
+    ]
+  },
+  {
+    "id": "kameo-sub-zero",
+    "slug": "sub-zero",
+    "name": "SUB-ZERO",
+    "group": "kameo",
+    "image": "/fighters/kameos/sub-zero.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/sub-zero.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-shujinko",
+    "slug": "shujinko",
+    "name": "SHUJINKO",
+    "group": "kameo",
+    "image": "/fighters/kameos/shujinko.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/shujinko.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-scorpion",
+    "slug": "scorpion",
+    "name": "SCORPION",
+    "group": "kameo",
+    "image": "/fighters/kameos/scorpion.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/scorpion.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-motaro",
+    "slug": "motaro",
+    "name": "MOTARO",
+    "group": "kameo",
+    "image": "/fighters/kameos/motaro.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/motaro.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-kung-lao",
+    "slug": "kung-lao",
+    "name": "KUNG LAO",
+    "group": "kameo",
+    "image": "/fighters/kameos/kung-lao.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/kung-lao.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-cyrax",
+    "slug": "cyrax",
+    "name": "CYRAX",
+    "group": "kameo",
+    "image": "/fighters/kameos/cyrax.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/cyrax.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-frost",
+    "slug": "frost",
+    "name": "FROST",
+    "group": "kameo",
+    "image": "/fighters/kameos/frost.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/frost.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-goro",
+    "slug": "goro",
+    "name": "GORO",
+    "group": "kameo",
+    "image": "/fighters/kameos/goro.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/goro.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-jax",
+    "slug": "jax",
+    "name": "JAX",
+    "group": "kameo",
+    "image": "/fighters/kameos/jax.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/jax.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-kano",
+    "slug": "kano",
+    "name": "KANO",
+    "group": "kameo",
+    "image": "/fighters/kameos/kano.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/kano.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-darrius",
+    "slug": "darrius",
+    "name": "DARRIUS",
+    "group": "kameo",
+    "image": "/fighters/kameos/darrius.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/darrius.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-sareena",
+    "slug": "sareena",
+    "name": "SAREENA",
+    "group": "kameo",
+    "image": "/fighters/kameos/sareena.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/sareena.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-sektor",
+    "slug": "sektor",
+    "name": "SEKTOR",
+    "group": "kameo",
+    "image": "/fighters/kameos/sektor.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/sektor.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-sonya",
+    "slug": "sonya",
+    "name": "SONYA",
+    "group": "kameo",
+    "image": "/fighters/kameos/sonya.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/sonya.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-stryker",
+    "slug": "stryker",
+    "name": "STRYKER",
+    "group": "kameo",
+    "image": "/fighters/kameos/stryker.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/stryker.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-tremor",
+    "slug": "tremor",
+    "name": "TREMOR",
+    "group": "kameo",
+    "image": "/fighters/kameos/tremor.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/tremor.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-khameleon",
+    "slug": "khameleon",
+    "name": "KHAMELEON",
+    "group": "kameo",
+    "image": "/fighters/kameos/khameleon.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/khameleon.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-janet-cage",
+    "slug": "janet-cage",
+    "name": "JANET CAGE",
+    "group": "kameo",
+    "image": "/fighters/kameos/janet-cage.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/janet-cage.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-mavado",
+    "slug": "mavado",
+    "name": "MAVADO",
+    "group": "kameo",
+    "image": "/fighters/kameos/mavado.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/mavado.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-ferra",
+    "slug": "ferra",
+    "name": "FERRA",
+    "group": "kameo",
+    "image": "/fighters/kameos/ferra.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/ferra.webp",
+    "categories": [
+      "kameo"
+    ]
+  },
+  {
+    "id": "kameo-madam-bo",
+    "slug": "madam-bo",
+    "name": "MADAM BO",
+    "group": "kameo",
+    "image": "/fighters/kameos/madam-bo.webp",
+    "source": "https://cdn-mk1.mortalkombat.com/roster/kameos/madam-bo.webp",
+    "categories": [
+      "kameo"
+    ]
+  }
+]

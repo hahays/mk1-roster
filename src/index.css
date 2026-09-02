@@ -1,0 +1,558 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bahnschrift Condensed", "Arial Narrow", Impact, sans-serif;
+}
+
+:root {
+  color: #eeeae1;
+  background: #080706;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: transparent;
+}
+
+body,
+#root {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% -20%, rgb(106 66 28 / 28%), transparent 42%),
+    radial-gradient(circle at 15% 80%, rgb(92 18 8 / 16%), transparent 32%),
+    linear-gradient(180deg, #151310 0%, #090807 44%, #050505 100%);
+}
+
+.app-shell::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(115deg, transparent 0 80px, rgb(255 255 255 / 1.6%) 81px, transparent 83px),
+    linear-gradient(rgb(255 255 255 / 1.8%) 1px, transparent 1px);
+  background-size: auto, 100% 5px;
+  content: "";
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.app-shell--transparent {
+  background: transparent;
+}
+
+.app-shell--transparent::before {
+  display: none;
+}
+
+.ambient-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-smoke {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: min(1180px, 90vw);
+  height: 42vh;
+  object-fit: cover;
+  opacity: 0.23;
+  mix-blend-mode: screen;
+  transform: translateX(-50%);
+}
+
+.ambient-fire {
+  position: absolute;
+  bottom: -2.5rem;
+  left: 50%;
+  width: max(100%, 1280px);
+  height: 9rem;
+  object-fit: cover;
+  opacity: 0.56;
+  mix-blend-mode: screen;
+  transform: translateX(-50%);
+}
+
+.roster-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 0.75rem 1.5rem;
+  padding: 0.5rem 0.25rem 0;
+}
+
+.roster-header--overlay {
+  padding-bottom: 0.25rem;
+}
+
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(5.5rem, 8.3vw, 9rem), 1fr));
+  align-content: center;
+  gap: clamp(0.25rem, 0.48vw, 0.55rem);
+}
+
+.fighter-card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 0.92;
+  padding: 0;
+  overflow: hidden;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  cursor: pointer;
+  animation: card-enter 480ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  animation-delay: calc(var(--card-index) * 18ms);
+  transform: translateZ(0);
+}
+
+.fighter-card::after {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  border: 1px solid rgb(255 255 255 / 14%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 48%);
+  content: "";
+  pointer-events: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.fighter-card:hover::after,
+.fighter-card:focus-visible::after {
+  border-color: rgb(241 181 75 / 78%);
+  box-shadow: inset 0 0 0 1px rgb(255 220 144 / 18%), inset 0 0 1.75rem rgb(201 121 27 / 18%);
+}
+
+.fighter-card:focus-visible {
+  outline: 2px solid #f4c46b;
+  outline-offset: 3px;
+}
+
+.fighter-card__surface {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgb(63 61 58 / 35%), transparent 32%),
+    linear-gradient(150deg, #282827, #11110f 72%);
+}
+
+.fighter-card__surface::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(110deg, transparent 18%, rgb(255 255 255 / 6%) 42%, transparent 62%);
+  content: "";
+  transform: translateX(-120%);
+  transition: transform 600ms ease;
+}
+
+.fighter-card:hover .fighter-card__surface::before {
+  transform: translateX(120%);
+}
+
+.fighter-card__glow {
+  position: absolute;
+  inset: auto 10% 0;
+  height: 58%;
+  background: radial-gradient(ellipse at bottom, rgb(205 132 36 / 22%), transparent 68%);
+  filter: blur(8px);
+  transition: opacity 400ms ease;
+}
+
+.fighter-card__portrait {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  user-select: none;
+  transition: filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 480ms ease, transform 500ms ease;
+}
+
+.fighter-card:hover .fighter-card__portrait {
+  transform: scale(1.035);
+}
+
+.fighter-card.is-eliminated .fighter-card__portrait {
+  filter: grayscale(1) brightness(0.29) contrast(1.28);
+  opacity: 0.82;
+  transform: scale(0.985);
+}
+
+.fighter-card.is-eliminated .fighter-card__glow {
+  opacity: 0;
+}
+
+.fighter-card__blood {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 28% 33%, rgb(126 0 0 / 78%) 0 3%, transparent 3.8%),
+    radial-gradient(ellipse at 66% 58%, rgb(89 0 0 / 58%) 0 7%, transparent 8%),
+    radial-gradient(ellipse at 45% 46%, rgb(125 0 0 / 42%) 0 18%, transparent 28%);
+  opacity: 0;
+  transform: scale(0.82);
+  pointer-events: none;
+}
+
+.fighter-card.is-eliminated .fighter-card__blood {
+  animation: blood-impact 650ms cubic-bezier(0.16, 0.7, 0.2, 1) forwards;
+}
+
+.fighter-card__type {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.7rem;
+  z-index: 5;
+  padding: 0.15rem 0.35rem;
+  color: rgb(248 203 110 / 78%);
+  background: rgb(0 0 0 / 54%);
+  border: 1px solid rgb(248 203 110 / 25%);
+  font-size: clamp(0.4rem, 0.48vw, 0.58rem);
+  font-weight: 800;
+  letter-spacing: 0.17em;
+}
+
+.fighter-card__name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+  display: flex;
+  min-height: 20%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 0.7rem 0.3rem;
+  overflow: hidden;
+  color: #f4f0e8;
+  background: linear-gradient(90deg, rgb(20 19 17 / 96%), rgb(48 44 37 / 96%) 50%, rgb(20 19 17 / 96%));
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  font-family: var(--font-display);
+  font-size: clamp(0.52rem, 0.72vw, 0.82rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px #000;
+  transition: color 300ms ease, background 300ms ease;
+}
+
+.fighter-card.is-eliminated .fighter-card__name {
+  color: #8c8580;
+  background: rgb(10 9 9 / 95%);
+}
+
+.death-mark {
+  position: absolute;
+  inset: 4% 3% 15%;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fighter-card.is-eliminated .death-mark {
+  opacity: 1;
+}
+
+.death-mark svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.death-mark__line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  vector-effect: non-scaling-stroke;
+}
+
+.death-mark__shadow {
+  stroke: rgb(34 0 0 / 86%);
+  stroke-width: 9;
+}
+
+.death-mark__stroke {
+  stroke: #a60000;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 4px rgb(198 0 0 / 70%));
+}
+
+.fighter-card.is-eliminated .death-mark__line--first {
+  animation: slash-draw 280ms 90ms cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+}
+
+.fighter-card.is-eliminated .death-mark__line--second {
+  animation: slash-draw 310ms 260ms cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+}
+
+.death-mark__drop {
+  fill: #8d0000;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.fighter-card.is-eliminated .death-mark__drop {
+  animation: drop-impact 280ms 400ms ease-out forwards;
+}
+
+.fighter-card.is-eliminated .death-mark__drop--two {
+  animation-delay: 470ms;
+}
+
+.fighter-card.is-eliminated .death-mark__drop--three {
+  animation-delay: 520ms;
+}
+
+.death-mark__label {
+  position: relative;
+  z-index: 2;
+  padding: 0.12em 0.3em;
+  color: #d8d3cc;
+  background: rgb(31 0 0 / 72%);
+  border: 1px solid rgb(210 22 22 / 55%);
+  font-family: var(--font-display);
+  font-size: clamp(0.8rem, 1.5vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  opacity: 0;
+  text-shadow: 0 2px 4px #000;
+  transform: rotate(-5deg) scale(1.5);
+}
+
+.fighter-card.is-eliminated .death-mark__label {
+  animation: label-impact 260ms 390ms cubic-bezier(0.2, 0.9, 0.2, 1.2) forwards;
+}
+
+.filter-button {
+  min-width: 5.5rem;
+  padding: 0.55rem 0.9rem;
+  color: #79746d;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid rgb(255 255 255 / 8%);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.filter-button:last-child {
+  border-right: 0;
+}
+
+.filter-button:hover,
+.filter-button:focus-visible {
+  color: #d8d0c4;
+  outline: none;
+}
+
+.filter-button.is-active {
+  color: #f3d18c;
+  background: linear-gradient(135deg, rgb(174 101 23 / 28%), rgb(109 54 11 / 12%));
+  box-shadow: inset 0 -2px #c7852f;
+}
+
+.reset-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.7rem;
+  color: #aca59c;
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 10%);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.reset-button:hover:not(:disabled),
+.reset-button:focus-visible {
+  color: #f0c2ba;
+  background: rgb(131 17 11 / 12%);
+  border-color: rgb(188 45 32 / 45%);
+  outline: none;
+}
+
+.reset-button:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 76%);
+  backdrop-filter: blur(8px);
+  animation: backdrop-enter 160ms ease-out both;
+}
+
+.reset-dialog {
+  width: min(100%, 28rem);
+  padding: 1.75rem;
+  background: linear-gradient(150deg, #211d19, #0c0b0a 70%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  box-shadow: 0 2rem 6rem #000, inset 0 1px rgb(255 255 255 / 5%);
+  animation: dialog-enter 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.dialog-button {
+  padding: 0.65rem 1rem;
+  color: #c8c1b7;
+  background: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.dialog-button:hover,
+.dialog-button:focus-visible {
+  color: #fff;
+  border-color: rgb(255 255 255 / 28%);
+  outline: none;
+}
+
+.dialog-button--danger {
+  color: #ffd3cc;
+  background: #741a10;
+  border-color: #a63325;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+@keyframes blood-impact {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  35% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.58;
+    transform: scale(1);
+  }
+}
+
+@keyframes slash-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drop-impact {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+@keyframes label-impact {
+  to {
+    opacity: 0.88;
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+}
+
+@media (max-width: 639px) {
+  .roster-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .filter-button {
+    min-width: auto;
+    padding-inline: 0.65rem;
+  }
+
+  .ambient-fire {
+    height: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+
+  .ambient-layer {
+    display: none;
+  }
+}
