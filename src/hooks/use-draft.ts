@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { draftSteps, shufflePlayerIndexes } from "../lib/draft";
 import type { DraftAssignments, DraftMatchWinner, DraftSelection, DraftTeamNames } from "../types/draft";
 
-const STORAGE_KEY = "mk1-draft-state";
+const STORAGE_KEY = "mk1-draft-state:v3";
 const PLAYER_COUNT = 4;
 
 type DraftState = {

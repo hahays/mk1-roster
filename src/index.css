@@ -858,6 +858,9 @@ button {
 }
 
 .draft-matches__winner {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   margin: 0.7rem 0;
   padding: 0.5rem 0.7rem;
   color: #bcb5aa;
@@ -877,11 +880,16 @@ button {
   letter-spacing: 0.04em;
 }
 
-.draft-matches__winner span {
+.draft-matches__winner-label {
+  text-transform: uppercase;
+}
+
+.draft-matches__winner em {
   margin-left: 0.65rem;
   color: #b8aea2;
   font-family: var(--font-display);
   font-size: 1rem;
+  font-style: normal;
 }
 
 .draft-matches__list {
@@ -1062,15 +1070,15 @@ button {
 
 .draft-fighter-card.is-ban::after {
   position: absolute;
-  top: 48%;
-  left: 8%;
+  top: 50%;
+  left: 50%;
   z-index: 3;
-  width: 84%;
+  width: 154%;
   height: 4px;
   background: #9f1711;
   box-shadow: 0 0 8px #c52c1f;
   content: "";
-  transform: rotate(-38deg) scaleX(0);
+  transform: translate(-50%, -50%) rotate(-38deg) scaleX(0);
   animation: draft-slash 280ms 80ms ease-out forwards;
 }
 
@@ -1365,7 +1373,7 @@ button {
 
 @keyframes draft-slash {
   to {
-    transform: rotate(-38deg) scaleX(1);
+    transform: translate(-50%, -50%) rotate(-38deg) scaleX(1);
   }
 }
 

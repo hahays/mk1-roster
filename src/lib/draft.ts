@@ -1,26 +1,20 @@
-import type { DraftStep, DraftTeamId } from "../types/draft";
+import type { DraftStep } from "../types/draft";
 
-const paired = (
+const roundTurn = (
   round: DraftStep["round"],
-  action: DraftStep["action"],
-  first: DraftTeamId,
-  second: DraftTeamId,
+  bans: number,
+  picks: number,
 ): DraftStep[] => [
-  { round, action, teamId: first },
-  { round, action, teamId: second },
-  { round, action, teamId: second },
-  { round, action, teamId: first },
+  ...Array.from({ length: bans }, () => ({ round, action: "ban" as const, teamId: "fire" as const })),
+  ...Array.from({ length: bans }, () => ({ round, action: "ban" as const, teamId: "shadow" as const })),
+  ...Array.from({ length: picks }, () => ({ round, action: "pick" as const, teamId: "fire" as const })),
+  ...Array.from({ length: picks }, () => ({ round, action: "pick" as const, teamId: "shadow" as const })),
 ];
 
 export const draftSteps: DraftStep[] = [
-  ...paired(1, "ban", "fire", "shadow"),
-  ...paired(1, "pick", "shadow", "fire"),
-  ...paired(2, "ban", "shadow", "fire"),
-  ...paired(2, "pick", "fire", "shadow"),
-  { round: 3, action: "ban", teamId: "fire" },
-  { round: 3, action: "ban", teamId: "shadow" },
-  { round: 3, action: "pick", teamId: "shadow" },
-  { round: 3, action: "pick", teamId: "fire" },
+  ...roundTurn(1, 2, 2),
+  ...roundTurn(2, 2, 2),
+  ...roundTurn(3, 1, 1),
 ];
 
 export const draftRoundRules = [

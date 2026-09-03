@@ -36,7 +36,7 @@ export function DraftMatchesDialog({
           <h2>МАТЧ</h2>
           <button aria-label="Закрыть" type="button" onClick={onClose}>×</button>
         </header>
-        {isComplete && <p className="draft-matches__winner">ПОБЕДА: <strong>{winningTeam}</strong><span>{fireWins} : {shadowWins}</span></p>}
+        {isComplete && <p className="draft-matches__winner"><span className="draft-matches__winner-label">ПОБЕДА:</span><strong>{winningTeam}</strong><em>{fireWins} : {shadowWins}</em></p>}
         <div className="draft-matches__list">
           {picks.fire.map((fireId, index) => {
             const shadowId = picks.shadow[index];
