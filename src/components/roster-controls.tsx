@@ -1,4 +1,5 @@
 import type { RosterFilter } from "../types/fighter";
+import { ModeSwitch } from "./mode-switch";
 
 type RosterControlsProps = {
   activeFilter: RosterFilter;
@@ -6,6 +7,7 @@ type RosterControlsProps = {
   isOverlay: boolean;
   onFilterChange: (filter: RosterFilter) => void;
   onResetRequest: () => void;
+  onShowDraft: () => void;
   totalCount: number;
 };
 
@@ -21,15 +23,16 @@ export function RosterControls({
   isOverlay,
   onFilterChange,
   onResetRequest,
+  onShowDraft,
   totalCount,
 }: RosterControlsProps) {
   return (
     <header className={`roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
       <div className="min-w-0">
-        <p className="mb-3 text-[0.62rem] font-bold tracking-[0.32em] text-amber-300/60 sm:mb-4 sm:text-xs">
+        <p className="page-eyebrow">
           ЭЛЬ, ПРИДУМАЙ ТУТ НАЗВАНИЕ, ЧТО ХОТЕЛ БЫ ВИДЕТЬ
         </p>
-        <h1 className="font-display text-[clamp(1.75rem,4vw,4.25rem)] leading-none tracking-[-0.035em] text-stone-100">
+        <h1 className="page-title">
           ВЫБЕРИТЕ БОЙЦА
         </h1>
       </div>
@@ -48,18 +51,21 @@ export function RosterControls({
 
       {!isOverlay && (
         <div className="col-span-full flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-3">
-          <div className="flex overflow-hidden rounded-sm border border-white/10 bg-black/30" role="group" aria-label="Roster view">
-            {filters.map((filter) => (
-              <button
-                className={`filter-button ${activeFilter === filter.value ? "is-active" : ""}`}
-                key={filter.value}
-                type="button"
-                aria-pressed={activeFilter === filter.value}
-                onClick={() => onFilterChange(filter.value)}
-              >
-                {filter.label}
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center gap-3">
+            <ModeSwitch activeMode="roster" onChange={(mode) => mode === "draft" && onShowDraft()} />
+            <div className="flex overflow-hidden rounded-sm border border-white/10 bg-black/30" role="group" aria-label="Roster view">
+              {filters.map((filter) => (
+                <button
+                  className={`filter-button ${activeFilter === filter.value ? "is-active" : ""}`}
+                  key={filter.value}
+                  type="button"
+                  aria-pressed={activeFilter === filter.value}
+                  onClick={() => onFilterChange(filter.value)}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <button
