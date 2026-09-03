@@ -61,8 +61,8 @@ export function useDraft() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  function updateSetup(players: string[], teamNames: DraftTeamNames) {
-    setState((current) => ({ ...current, players, teamNames }));
+  function updateSetup(players: string[], teamNames: DraftTeamNames, assignments: DraftAssignments) {
+    setState((current) => ({ ...current, players, teamNames, assignments, selections: [], matchWinners: [] }));
   }
 
   function randomizeTeams() {

@@ -134,10 +134,11 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
       {isEditorOpen && (
         <PlayerEditorDialog
           players={draft.players}
+          assignments={draft.assignments}
           teamNames={draft.teamNames}
           onCancel={() => setIsEditorOpen(false)}
-          onSave={(players, teamNames) => {
-            draft.updateSetup(players, teamNames);
+          onSave={(players, teamNames, assignments) => {
+            draft.updateSetup(players, teamNames, assignments);
             setIsEditorOpen(false);
           }}
         />
