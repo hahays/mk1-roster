@@ -44,15 +44,17 @@ export function PlayerEditorDialog({
 
         <div className="player-editor__teams">
           <label>
-            <span>КОМАНДА A</span>
+            <span>TEAM</span>
             <input
+              aria-label="Название команды X"
               value={draftTeamNames.fire}
               onChange={(event) => setDraftTeamNames((current) => ({ ...current, fire: event.target.value }))}
             />
           </label>
           <label>
-            <span>КОМАНДА B</span>
+            <span>TEAM</span>
             <input
+              aria-label="Название команды Y"
               value={draftTeamNames.shadow}
               onChange={(event) => setDraftTeamNames((current) => ({ ...current, shadow: event.target.value }))}
             />
