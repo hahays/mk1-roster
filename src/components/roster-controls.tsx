@@ -30,7 +30,7 @@ export function RosterControls({
     <header className={`roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
       <div className="min-w-0">
         <p className="page-eyebrow">
-          ЭЛЬ, ПРИДУМАЙ ТУТ НАЗВАНИЕ, ЧТО ХОТЕЛ БЫ ВИДЕТЬ
+          MK CAPTAIN MODE
         </p>
         <h1 className="page-title">
           ВЫБЕРИТЕ БОЙЦА

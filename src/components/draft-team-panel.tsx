@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { DraftSelection, DraftTeamId } from "../types/draft";
 import type { Fighter } from "../types/fighter";
+import { getAssetUrl } from "../lib/assets";
 
 type DraftTeamPanelProps = {
   teamId: DraftTeamId;
@@ -35,7 +36,7 @@ export function DraftTeamPanel({
       <div className="draft-team__heading">
         <span className="draft-team__sigil">{teamId === "fire" ? "A" : "B"}</span>
         <div>
-          <p>8 PLAYERS</p>
+          <p>2 PLAYERS</p>
           <h2>{name}</h2>
         </div>
       </div>
@@ -73,6 +74,13 @@ export function DraftTeamPanel({
       <div className="draft-team__bans">
         <span>BANS {bans.length}/5</span>
         <p>{bans.map(({ fighterId }) => fightersById.get(fighterId)?.name).join(" · ") || "—"}</p>
+      </div>
+
+      <div className="draft-team__pick-portraits" aria-label={`Выбранные бойцы: ${name}`}>
+        {picks.map(({ fighterId }) => {
+          const fighter = fightersById.get(fighterId);
+          return fighter ? <img alt={fighter.name} key={fighterId} src={getAssetUrl(fighter.image)} title={fighter.name} /> : null;
+        })}
       </div>
     </aside>
   );

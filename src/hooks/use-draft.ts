@@ -1,22 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
 import { draftSteps, shufflePlayerIndexes } from "../lib/draft";
-import type { DraftAssignments, DraftSelection, DraftTeamNames } from "../types/draft";
+import type { DraftAssignments, DraftMatchWinner, DraftSelection, DraftTeamNames } from "../types/draft";
 
 const STORAGE_KEY = "mk1-draft-state";
-const PLAYER_COUNT = 16;
+const PLAYER_COUNT = 4;
 
 type DraftState = {
   players: string[];
   teamNames: DraftTeamNames;
   assignments: DraftAssignments;
   selections: DraftSelection[];
+  matchWinners: DraftMatchWinner[];
 };
 
 const defaultState: DraftState = {
   players: Array.from({ length: PLAYER_COUNT }, (_, index) => `Игрок ${String(index + 1).padStart(2, "0")}`),
-  teamNames: { fire: "TEAM FIRE", shadow: "TEAM SHADOW" },
+  teamNames: { fire: "Команда X", shadow: "Команда Y" },
   assignments: { fire: [], shadow: [] },
   selections: [],
+  matchWinners: [],
 };
 
 function readDraftState(): DraftState {
@@ -30,14 +32,15 @@ function readDraftState(): DraftState {
     return {
       players: stored.players.map((player, index) => player || defaultState.players[index]),
       teamNames: {
-        fire: stored.teamNames?.fire || defaultState.teamNames.fire,
-        shadow: stored.teamNames?.shadow || defaultState.teamNames.shadow,
+        fire: stored.teamNames?.fire === "TEAM FIRE" || stored.teamNames?.fire === "Команда один" ? defaultState.teamNames.fire : stored.teamNames?.fire || defaultState.teamNames.fire,
+        shadow: stored.teamNames?.shadow === "TEAM SHADOW" || stored.teamNames?.shadow === "Команда два" ? defaultState.teamNames.shadow : stored.teamNames?.shadow || defaultState.teamNames.shadow,
       },
       assignments: {
         fire: Array.isArray(stored.assignments?.fire) ? stored.assignments.fire : [],
         shadow: Array.isArray(stored.assignments?.shadow) ? stored.assignments.shadow : [],
       },
       selections: Array.isArray(stored.selections) ? stored.selections.slice(0, draftSteps.length) : [],
+      matchWinners: Array.isArray(stored.matchWinners) ? stored.matchWinners : [],
     };
   } catch {
     return defaultState;
@@ -48,7 +51,7 @@ export function useDraft() {
   const [state, setState] = useState<DraftState>(readDraftState);
   const [shuffleVersion, setShuffleVersion] = useState(0);
   const currentStep = draftSteps[state.selections.length] ?? null;
-  const hasTeams = state.assignments.fire.length === 8 && state.assignments.shadow.length === 8;
+  const hasTeams = state.assignments.fire.length === 2 && state.assignments.shadow.length === 2;
   const usedFighterIds = useMemo(
     () => new Set(state.selections.map(({ fighterId }) => fighterId)),
     [state.selections],
@@ -67,8 +70,9 @@ export function useDraft() {
     setShuffleVersion((version) => version + 1);
     setState((current) => ({
       ...current,
-      assignments: { fire: shuffled.slice(0, 8), shadow: shuffled.slice(8) },
+      assignments: { fire: shuffled.slice(0, 2), shadow: shuffled.slice(2, 4) },
       selections: [],
+      matchWinners: [],
     }));
   }
 
@@ -82,11 +86,21 @@ export function useDraft() {
   }
 
   function undo() {
-    setState((current) => ({ ...current, selections: current.selections.slice(0, -1) }));
+    setState((current) => ({ ...current, selections: current.selections.slice(0, -1), matchWinners: [] }));
   }
 
   function resetDraft() {
-    setState((current) => ({ ...current, selections: [] }));
+    setState((current) => ({ ...current, selections: [], matchWinners: [] }));
+  }
+
+  function selectMatchWinner(matchIndex: number, fighterId: string) {
+    setState((current) => ({
+      ...current,
+      matchWinners: [
+        ...current.matchWinners.filter((winner) => winner.matchIndex !== matchIndex),
+        { matchIndex, fighterId },
+      ],
+    }));
   }
 
   return {
@@ -101,5 +115,6 @@ export function useDraft() {
     selectFighter,
     undo,
     updateSetup,
+    selectMatchWinner,
   };
 }

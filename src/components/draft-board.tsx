@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { draftRoundRules, draftSteps } from "../lib/draft";
+import { draftRoundRules } from "../lib/draft";
 import { useDraft } from "../hooks/use-draft";
 import type { Fighter } from "../types/fighter";
 import { DraftFighterCard } from "./draft-fighter-card";
 import { DraftTeamPanel } from "./draft-team-panel";
 import { ModeSwitch } from "./mode-switch";
 import { PlayerEditorDialog } from "./player-editor-dialog";
+import { DraftMatchesDialog } from "./draft-matches-dialog";
 
 type DraftBoardProps = {
   fighters: Fighter[];
@@ -16,6 +17,7 @@ type DraftBoardProps = {
 export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProps) {
   const draft = useDraft();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isMatchesOpen, setIsMatchesOpen] = useState(false);
   const [isRandomizing, setIsRandomizing] = useState(false);
   const randomizeTimer = useRef<number | null>(null);
   const fightersById = useMemo(() => new Map(fighters.map((fighter) => [fighter.id, fighter])), [fighters]);
@@ -26,6 +28,10 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
   const firePlayers = draft.assignments.fire.map((index) => draft.players[index]);
   const shadowPlayers = draft.assignments.shadow.map((index) => draft.players[index]);
   const currentTeamName = draft.currentStep ? draft.teamNames[draft.currentStep.teamId] : "";
+  const picks = useMemo(() => ({
+    fire: draft.selections.filter((selection) => selection.teamId === "fire" && selection.action === "pick").map((selection) => selection.fighterId),
+    shadow: draft.selections.filter((selection) => selection.teamId === "shadow" && selection.action === "pick").map((selection) => selection.fighterId),
+  }), [draft.selections]);
 
   useEffect(() => () => {
     if (randomizeTimer.current !== null) window.clearTimeout(randomizeTimer.current);
@@ -42,12 +48,11 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
     <>
       <header className="draft-header">
         <div>
-          <p className="page-eyebrow">MK1 TOURNAMENT CONTROL</p>
+          <p className="page-eyebrow">MK1 TOURNAMENT</p>
           <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
         </div>
 
         <div className="draft-header__status">
-          <span>{draft.hasTeams ? `ШАГ ${draft.selections.length + (draft.isComplete ? 0 : 1)} / ${draftSteps.length}` : "ПОДГОТОВКА"}</span>
           <strong>
             {isRandomizing
               ? "ФОРМИРУЕМ КОМАНДЫ"
@@ -68,6 +73,7 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
             </button>
             <button type="button" disabled={draft.selections.length === 0} onClick={draft.undo}>Отменить ход</button>
             <button type="button" disabled={draft.selections.length === 0} onClick={draft.resetDraft}>Сбросить драфт</button>
+            <button className="is-match" type="button" disabled={!draft.isComplete} onClick={() => setIsMatchesOpen(true)}>Матч</button>
           </div>
         )}
 
@@ -79,6 +85,7 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
             </div>
           ))}
         </div>
+
       </header>
 
       <section className="draft-layout">
@@ -133,6 +140,17 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
             draft.updateSetup(players, teamNames);
             setIsEditorOpen(false);
           }}
+        />
+      )}
+
+      {isMatchesOpen && (
+        <DraftMatchesDialog
+          fightersById={fightersById}
+          matchWinners={draft.matchWinners}
+          picks={picks}
+          teamNames={draft.teamNames}
+          onClose={() => setIsMatchesOpen(false)}
+          onSelectWinner={draft.selectMatchWinner}
         />
       )}
     </>

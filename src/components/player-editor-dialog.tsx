@@ -26,8 +26,8 @@ export function PlayerEditorDialog({
     onSave(
       draftPlayers.map((player, index) => player.trim() || `Игрок ${String(index + 1).padStart(2, "0")}`),
       {
-        fire: draftTeamNames.fire.trim() || "TEAM FIRE",
-        shadow: draftTeamNames.shadow.trim() || "TEAM SHADOW",
+        fire: draftTeamNames.fire.trim() || "Команда X",
+        shadow: draftTeamNames.shadow.trim() || "Команда Y",
       },
     );
   }
@@ -37,8 +37,7 @@ export function PlayerEditorDialog({
       <form className="player-editor" onSubmit={submit} onMouseDown={(event) => event.stopPropagation()}>
         <div className="player-editor__heading">
           <div>
-            <p>TOURNAMENT SETUP</p>
-            <h2>16 ИГРОКОВ</h2>
+            <h2>ИГРОКИ</h2>
           </div>
           <button type="button" onClick={onCancel} aria-label="Закрыть">×</button>
         </div>
