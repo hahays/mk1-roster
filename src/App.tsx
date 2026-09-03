@@ -5,7 +5,6 @@ import { FighterCard } from "./components/fighter-card";
 import { ResetDialog } from "./components/reset-dialog";
 import { RosterControls } from "./components/roster-controls";
 import { useEliminatedFighters } from "./hooks/use-eliminated-fighters";
-import { getAssetUrl } from "./lib/assets";
 import type { AppMode } from "./components/mode-switch";
 import type { Fighter, RosterFilter } from "./types/fighter";
 
@@ -82,17 +81,6 @@ function App() {
       className={`app-shell ${pageSettings.isTransparent ? "app-shell--transparent" : ""}`}
       data-view={mode === "draft" ? "draft" : filter}
     >
-      <div className="ambient-layer" aria-hidden="true">
-        <div className="ambient-smoke-field">
-          <video className="ambient-smoke" src={getAssetUrl("/effects/roster-smoke.mp4")} autoPlay muted loop playsInline />
-          <video className="ambient-smoke ambient-smoke--mirror" src={getAssetUrl("/effects/roster-smoke.mp4")} autoPlay muted loop playsInline />
-        </div>
-        <div className="ambient-fire-field">
-          <video className="ambient-fire" src={getAssetUrl("/effects/fire-line.mp4")} autoPlay muted loop playsInline />
-          <video className="ambient-fire ambient-fire--mirror" src={getAssetUrl("/effects/fire-line.mp4")} autoPlay muted loop playsInline />
-        </div>
-      </div>
-
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1920px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
         {mode === "draft" ? (
           <DraftBoard

@@ -54,14 +54,6 @@ const assets = [
     source: fighter.source,
     destination: join(publicDirectory, "fighters", "kameos", basename(fighter.image)),
   })),
-  {
-    source: "https://cdn-mk1.mortalkombat.com/static/fire-line-bot-loop.mp4",
-    destination: join(publicDirectory, "effects", "fire-line.mp4"),
-  },
-  {
-    source: "https://cdn-mk1.mortalkombat.com/roster/roster-smoke.mp4",
-    destination: join(publicDirectory, "effects", "roster-smoke.mp4"),
-  },
 ];
 
 await mkdir(dirname(manifestPath), { recursive: true });
