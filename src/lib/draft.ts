@@ -12,14 +12,14 @@ const roundTurn = (
 ];
 
 export const draftSteps: DraftStep[] = [
-  ...roundTurn(1, 2, 2),
-  ...roundTurn(2, 2, 2),
+  ...roundTurn(1, 1, 2),
+  ...roundTurn(2, 1, 2),
   ...roundTurn(3, 1, 1),
 ];
 
 export const draftRoundRules = [
-  { round: 1, bans: 2, picks: 2 },
-  { round: 2, bans: 2, picks: 2 },
+  { round: 1, bans: 1, picks: 2 },
+  { round: 2, bans: 1, picks: 2 },
   { round: 3, bans: 1, picks: 1 },
 ] as const;
 

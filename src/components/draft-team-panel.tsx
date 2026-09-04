@@ -72,7 +72,7 @@ export function DraftTeamPanel({
       </div>
 
       <div className="draft-team__bans">
-        <span>BANS {bans.length}/5</span>
+        <span>BANS {bans.length}/3</span>
         <p>{bans.map(({ fighterId }) => fightersById.get(fighterId)?.name).join(" · ") || "—"}</p>
       </div>
 
