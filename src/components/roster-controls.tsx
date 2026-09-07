@@ -7,7 +7,9 @@ type RosterControlsProps = {
   isOverlay: boolean;
   onFilterChange: (filter: RosterFilter) => void;
   onResetRequest: () => void;
+  onShowBracket: () => void;
   onShowDraft: () => void;
+  onShowRating: () => void;
   totalCount: number;
 };
 
@@ -23,7 +25,9 @@ export function RosterControls({
   isOverlay,
   onFilterChange,
   onResetRequest,
+  onShowBracket,
   onShowDraft,
+  onShowRating,
   totalCount,
 }: RosterControlsProps) {
   return (
@@ -52,7 +56,11 @@ export function RosterControls({
       {!isOverlay && (
         <div className="col-span-full flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-3">
           <div className="flex flex-wrap items-center gap-3">
-            <ModeSwitch activeMode="roster" onChange={(mode) => mode === "draft" && onShowDraft()} />
+            <ModeSwitch activeMode="roster" onChange={(mode) => {
+              if (mode === "draft") onShowDraft();
+              if (mode === "bracket") onShowBracket();
+              if (mode === "rating") onShowRating();
+            }} />
             <div className="flex overflow-hidden rounded-sm border border-white/10 bg-black/30" role="group" aria-label="Roster view">
               {filters.map((filter) => (
                 <button

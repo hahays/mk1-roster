@@ -7,14 +7,18 @@ import { DraftTeamPanel } from "./draft-team-panel";
 import { ModeSwitch } from "./mode-switch";
 import { PlayerEditorDialog } from "./player-editor-dialog";
 import { DraftMatchesDialog } from "./draft-matches-dialog";
+import type { RatingResult } from "../types/rating";
 
 type DraftBoardProps = {
   fighters: Fighter[];
   isOverlay: boolean;
+  onShowBracket: () => void;
+  onShowRating: () => void;
   onShowRoster: () => void;
+  onRecordRating: (results: RatingResult[]) => void;
 };
 
-export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProps) {
+export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowRoster, onRecordRating }: DraftBoardProps) {
   const draft = useDraft();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isMatchesOpen, setIsMatchesOpen] = useState(false);
@@ -66,7 +70,11 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
 
         {!isOverlay && (
           <div className="draft-header__controls">
-            <ModeSwitch activeMode="draft" onChange={(mode) => mode === "roster" && onShowRoster()} />
+            <ModeSwitch activeMode="draft" onChange={(mode) => {
+              if (mode === "roster") onShowRoster();
+              if (mode === "bracket") onShowBracket();
+              if (mode === "rating") onShowRating();
+            }} />
             <button type="button" onClick={() => setIsEditorOpen(true)}>Игроки</button>
             <button className="is-accent" type="button" disabled={isRandomizing} onClick={randomizeTeams}>
               {isRandomizing ? "Распределяем..." : "Распределить"}
@@ -148,9 +156,18 @@ export function DraftBoard({ fighters, isOverlay, onShowRoster }: DraftBoardProp
         <DraftMatchesDialog
           fightersById={fightersById}
           matchWinners={draft.matchWinners}
+          matchParticipants={draft.matchParticipants}
           picks={picks}
+          ratingRecorded={draft.ratingRecorded}
+          sessionId={draft.sessionId}
           teamNames={draft.teamNames}
+          teamPlayers={{ fire: firePlayers, shadow: shadowPlayers }}
           onClose={() => setIsMatchesOpen(false)}
+          onRecordResults={(results) => {
+            onRecordRating(results);
+            draft.markRatingRecorded();
+          }}
+          onSelectParticipant={draft.selectMatchParticipant}
           onSelectWinner={draft.selectMatchWinner}
         />
       )}

@@ -20,3 +20,9 @@ export type DraftMatchWinner = {
   matchIndex: number;
   fighterId: string;
 };
+
+export type DraftMatchParticipants = {
+  matchIndex: number;
+  firePlayerIndex: number;
+  shadowPlayerIndex: number;
+};

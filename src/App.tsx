@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import rosterData from "./data/roster.json";
 import { DraftBoard } from "./components/draft-board";
+import { BracketBoard } from "./components/bracket-board";
+import { RatingBoard } from "./components/rating-board";
 import { FighterCard } from "./components/fighter-card";
 import { ResetDialog } from "./components/reset-dialog";
 import { RosterControls } from "./components/roster-controls";
 import { useEliminatedFighters } from "./hooks/use-eliminated-fighters";
+import { useRating } from "./hooks/use-rating";
 import type { AppMode } from "./components/mode-switch";
 import type { Fighter, RosterFilter } from "./types/fighter";
 
@@ -21,7 +24,9 @@ function readPageSettings() {
 
   return {
     filter,
-    mode: params.get("mode") === "draft" ? "draft" as const : "roster" as const,
+    mode: ["draft", "bracket", "rating"].includes(params.get("mode") ?? "")
+      ? params.get("mode") as "draft" | "bracket" | "rating"
+      : "roster" as const,
     isOverlay: params.get("overlay") === "1",
     isTransparent: params.get("background") === "transparent",
   };
@@ -34,6 +39,7 @@ function App() {
   const [mode, setMode] = useState<AppMode>(pageSettings.mode);
   const [isResetOpen, setIsResetOpen] = useState(false);
   const { eliminated, reset, toggle } = useEliminatedFighters(fighterIds);
+  const rating = useRating();
   const visibleRoster = filter === "all" ? roster : roster.filter((fighter) => fighter.group === filter);
 
   useEffect(() => {
@@ -67,8 +73,8 @@ function App() {
     const url = new URL(window.location.href);
     setMode(nextMode);
 
-    if (nextMode === "draft") {
-      url.searchParams.set("mode", "draft");
+    if (nextMode === "draft" || nextMode === "bracket" || nextMode === "rating") {
+      url.searchParams.set("mode", nextMode);
     } else {
       url.searchParams.delete("mode");
     }
@@ -79,14 +85,36 @@ function App() {
   return (
     <main
       className={`app-shell ${pageSettings.isTransparent ? "app-shell--transparent" : ""}`}
-      data-view={mode === "draft" ? "draft" : filter}
+      data-view={mode === "draft" || mode === "bracket" || mode === "rating" ? mode : filter}
     >
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1920px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
         {mode === "draft" ? (
           <DraftBoard
             fighters={roster.filter((fighter) => fighter.group === "fighter")}
             isOverlay={pageSettings.isOverlay}
+            onShowBracket={() => changeMode("bracket")}
+            onShowRating={() => changeMode("rating")}
             onShowRoster={() => changeMode("roster")}
+            onRecordRating={rating.recordResults}
+          />
+        ) : mode === "bracket" ? (
+          <BracketBoard
+            isOverlay={pageSettings.isOverlay}
+            onRecordRating={rating.recordResults}
+            onShowDraft={() => changeMode("draft")}
+            onShowRating={() => changeMode("rating")}
+            onShowRoster={() => changeMode("roster")}
+          />
+        ) : mode === "rating" ? (
+          <RatingBoard
+            entries={rating.entries}
+            isOverlay={pageSettings.isOverlay}
+            months={rating.months}
+            results={rating.results}
+            onShowBracket={() => changeMode("bracket")}
+            onShowDraft={() => changeMode("draft")}
+            onShowRoster={() => changeMode("roster")}
+            onResetRating={rating.resetRating}
           />
         ) : (
           <>
@@ -96,7 +124,9 @@ function App() {
               isOverlay={pageSettings.isOverlay}
               onFilterChange={setFilter}
               onResetRequest={() => setIsResetOpen(true)}
+              onShowBracket={() => changeMode("bracket")}
               onShowDraft={() => changeMode("draft")}
+              onShowRating={() => changeMode("rating")}
               totalCount={roster.length}
             />
 
