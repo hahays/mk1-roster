@@ -87,7 +87,7 @@ function App() {
       className={`app-shell ${pageSettings.isTransparent ? "app-shell--transparent" : ""}`}
       data-view={mode === "draft" || mode === "bracket" || mode === "rating" ? mode : filter}
     >
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1920px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
+      <div className="app-shell__content relative z-10 mx-auto flex min-h-screen w-full max-w-[1920px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
         {mode === "draft" ? (
           <DraftBoard
             fighters={roster.filter((fighter) => fighter.group === "fighter")}

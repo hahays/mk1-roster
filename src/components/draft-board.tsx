@@ -50,7 +50,8 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
 
   return (
     <>
-      <header className="draft-header">
+      <header className="app-page-header draft-header">
+        <div className="app-page-header__top draft-header__top">
         <div>
           <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTR</p>
           <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
@@ -67,8 +68,9 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
                 : `РАУНД ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "БАН" : "ПИК"}`}
           </strong>
         </div>
+        </div>
 
-        <div className="draft-header__nav-row">
+        <div className="app-page-nav draft-header__nav-row">
           {!isOverlay && (
             <div className="draft-header__controls">
             <ModeSwitch activeMode="draft" onChange={(mode) => {

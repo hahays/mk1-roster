@@ -31,17 +31,18 @@ export function RosterControls({
   totalCount,
 }: RosterControlsProps) {
   return (
-    <header className={`roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
-      <div className="min-w-0">
+    <header className={`app-page-header roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
+      <div className="app-page-header__top roster-header__top">
+        <div className="min-w-0">
         <p className="page-eyebrow">
           ELKAMUSAEV EVENTS CENTR
         </p>
         <h1 className="page-title">
           ВЫБЕРИТЕ БОЙЦА
         </h1>
-      </div>
+        </div>
 
-      <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
         <div className="text-right">
           <span className="block text-[0.55rem] font-bold tracking-[0.22em] text-stone-500 sm:text-[0.65rem]">
             ELIMINATED
@@ -51,10 +52,11 @@ export function RosterControls({
             <span className="text-sm text-stone-600 sm:text-base"> / {totalCount}</span>
           </span>
         </div>
+        </div>
       </div>
 
       {!isOverlay && (
-        <div className="col-span-full flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-3">
+        <div className="app-page-nav roster-header__nav-row col-span-full flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <ModeSwitch activeMode="roster" onChange={(mode) => {
               if (mode === "draft") onShowDraft();

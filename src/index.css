@@ -19,6 +19,7 @@
 html {
   min-width: 320px;
   min-height: 100%;
+  scrollbar-gutter: stable;
   background: transparent;
 }
 
@@ -62,7 +63,12 @@ button {
 }
 
 .app-shell[data-view="draft"] {
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* Keep the page origin fixed when a view needs a vertical scrollbar. */
+.app-shell__content {
+  padding: 1.25rem 2rem !important;
 }
 
 .app-shell--transparent::before {
@@ -75,6 +81,16 @@ button {
   align-items: end;
   gap: 0.75rem 1.5rem;
   padding: 0.5rem 0.25rem 0;
+}
+
+.roster-header__nav-row,
+.page-mode-row,
+.draft-header__nav-row {
+  box-sizing: border-box;
+  min-height: 3.85rem;
+  height: 3.85rem;
+  align-items: flex-start;
+  padding-top: 0.62rem;
 }
 
 .roster-header--overlay {
@@ -426,16 +442,14 @@ button {
   display: flex;
   align-items: end;
   gap: 1rem 2rem;
-  padding: 0.7rem 0.25rem 0;
+  padding: 0.5rem 0.25rem 0;
 }
 
 .page-mode-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  min-height: 3.45rem;
   margin-top: 0.7rem;
-  padding: 0.62rem 0.25rem 0;
+  padding-inline: 0.25rem;
   border-top: 1px solid rgb(255 255 255 / 9%);
 }
 
@@ -635,7 +649,7 @@ button {
   grid-template-columns: minmax(18rem, 1fr) auto;
   align-items: end;
   gap: 0.75rem 2rem;
-  padding: 0.7rem 0.25rem 0;
+  padding: 0.5rem 0.25rem 0;
 }
 
 .draft-header__status {
@@ -664,11 +678,8 @@ button {
 .draft-header__nav-row {
   display: flex;
   grid-column: 1 / -1;
-  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem 2rem;
-  min-height: 3.45rem;
-  padding-top: 0.62rem;
   border-top: 1px solid rgb(255 255 255 / 9%);
 }
 
@@ -1671,6 +1682,10 @@ button {
 }
 
 @media (max-width: 639px) {
+  .app-shell__content {
+    padding: 0.75rem !important;
+  }
+
   .bracket-header {
     align-items: flex-start;
     flex-direction: column;
@@ -1862,7 +1877,7 @@ button {
 .draft-matches__footer > span { color: #817970; font-size: 0.56rem; font-weight: 900; letter-spacing: 0.1em; }
 .draft-matches__record { padding: 0.55rem 0.75rem; color: #211509; background: linear-gradient(135deg, #e1ad55, #9a581a); border: 1px solid #e6b75e; font-size: 0.62rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
 .draft-matches__record:disabled { color: #7e766c; background: rgb(255 255 255 / 4%); border-color: rgb(255 255 255 / 10%); cursor: default; }
-.rating-header { display: flex; align-items: end; gap: 1rem; padding: 0.7rem 0.25rem 0; }
+.rating-header { display: flex; align-items: end; gap: 1rem; padding: 0.5rem 0.25rem 0; }
 .rating-panel { flex: 1; margin-top: clamp(1rem, 2.1vh, 1.8rem); padding: clamp(0.85rem, 1.8vw, 1.55rem); background: linear-gradient(90deg, rgb(220 164 70 / 11%), transparent 27%, transparent 74%, rgb(55 112 109 / 8%)), repeating-linear-gradient(0deg, transparent 0 3rem, rgb(255 255 255 / 2.8%) 3.05rem), linear-gradient(135deg, rgb(27 23 18 / 94%), rgb(8 9 9 / 94%)); border: 1px solid rgb(223 178 99 / 26%); box-shadow: inset 0 1px rgb(255 255 255 / 5%), 0 1.2rem 3.5rem rgb(0 0 0 / 18%); }
 .rating-panel__toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid rgb(255 255 255 / 9%); }
 .rating-rules { display: flex; flex-wrap: wrap; gap: 0.45rem; }
@@ -1881,6 +1896,46 @@ button {
 .rating-empty { display: grid; min-height: 18rem; place-content: center; gap: 0.55rem; color: #827a70; text-align: center; }
 .rating-empty strong { color: #c5baab; font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.05em; }
 .rating-empty span { font-size: 0.78rem; }
+
+/* One shared page chrome: every mode uses the same title and navigation geometry. */
+.app-page-header,
+.roster-header,
+.draft-header,
+.bracket-header,
+.rating-header {
+  display: block;
+  padding: 0.5rem 0.25rem 0;
+}
+
+.app-page-header__top,
+.app-page-header--single,
+.bracket-header {
+  display: flex;
+  min-height: 5.4rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.draft-header__top {
+  min-width: 0;
+}
+
+.app-page-nav,
+.roster-header__nav-row,
+.draft-header__nav-row,
+.page-mode-row {
+  display: flex;
+  box-sizing: border-box;
+  min-height: 3.85rem;
+  height: 3.85rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 0.75rem;
+  padding: 0.62rem 0.25rem 0;
+  border-top: 1px solid rgb(255 255 255 / 9%);
+}
 
 @media (max-width: 639px) {
   .rating-header, .rating-panel__toolbar, .draft-matches__footer { align-items: flex-start; flex-direction: column; }
