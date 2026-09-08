@@ -68,6 +68,8 @@ button {
 
 /* Keep the page origin fixed when a view needs a vertical scrollbar. */
 .app-shell__content {
+  width: 100%;
+  margin: 0;
   padding: 1.25rem 2rem !important;
 }
 
@@ -1900,7 +1902,6 @@ button {
 /* One shared page chrome: every mode uses the same title and navigation geometry. */
 .app-page-header,
 .roster-header,
-.draft-header,
 .bracket-header,
 .rating-header {
   display: block;
@@ -1917,13 +1918,39 @@ button {
   gap: 1rem 2rem;
 }
 
-.draft-header__top {
-  min-width: 0;
-}
-
 .app-page-nav,
 .roster-header__nav-row,
 .draft-header__nav-row,
+.page-mode-row {
+  display: flex;
+  box-sizing: border-box;
+  min-height: 3.85rem;
+  height: 3.85rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 0.75rem;
+  padding: 0.62rem 0.25rem 0;
+  border-top: 1px solid rgb(255 255 255 / 9%);
+}
+
+/* Mode-specific classes may control grid placement only; navigation geometry is shared. */
+.draft-header {
+  row-gap: 0;
+  column-gap: 2rem;
+}
+
+.roster-header__nav-row,
+.draft-header__nav-row,
+.page-mode-row {
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.app-page-nav,
 .page-mode-row {
   display: flex;
   box-sizing: border-box;

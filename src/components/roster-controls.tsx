@@ -31,7 +31,8 @@ export function RosterControls({
   totalCount,
 }: RosterControlsProps) {
   return (
-    <header className={`app-page-header roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
+    <>
+      <header className={`app-page-header roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
       <div className="app-page-header__top roster-header__top">
         <div className="min-w-0">
         <p className="page-eyebrow">
@@ -54,6 +55,7 @@ export function RosterControls({
         </div>
         </div>
       </div>
+    </header>
 
       {!isOverlay && (
         <div className="app-page-nav roster-header__nav-row col-span-full flex flex-wrap items-center justify-between gap-3">
@@ -88,6 +90,6 @@ export function RosterControls({
           </button>
         </div>
       )}
-    </header>
+    </>
   );
 }
