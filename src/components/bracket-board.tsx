@@ -24,6 +24,14 @@ function createTournamentId() {
   return `bracket-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function createInitialState(): BracketState {
+  return {
+    matches: initialMatches.map((match) => ({ ...match, players: [...match.players], scores: [...match.scores] } as BracketMatch)),
+    ratingRecorded: false,
+    tournamentId: createTournamentId(),
+  };
+}
+
 function readBracketState(): BracketState {
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as BracketState | BracketMatch[] | null;
@@ -33,7 +41,7 @@ function readBracketState(): BracketState {
   } catch {
     // Start a clean four-player bracket.
   }
-  return { matches: initialMatches, ratingRecorded: false, tournamentId: createTournamentId() };
+  return createInitialState();
 }
 
 function isCompleteMatch(match: BracketMatch) {
@@ -52,6 +60,7 @@ function MatchCard({ disabled, match, onChange }: { disabled: boolean; match: Br
 
 export function BracketBoard({ isOverlay, onRecordRating, onShowDraft, onShowRating, onShowRoster }: BracketBoardProps) {
   const [state, setState] = useState<BracketState>(readBracketState);
+  const [isResetConfirming, setIsResetConfirming] = useState(false);
   const completeMatches = useMemo(() => state.matches.filter(isCompleteMatch), [state.matches]);
   const canRecord = completeMatches.length === state.matches.length && !state.ratingRecorded;
 
@@ -84,17 +93,27 @@ export function BracketBoard({ isOverlay, onRecordRating, onShowDraft, onShowRat
     setState((current) => ({ ...current, ratingRecorded: true }));
   }
 
+  function resetTournament() {
+    if (!isResetConfirming) {
+      setIsResetConfirming(true);
+      return;
+    }
+    setState(createInitialState());
+    setIsResetConfirming(false);
+  }
+
   const byId = (id: string) => state.matches.find((match) => match.id === id)!;
   const props = (id: string) => ({ disabled: state.ratingRecorded, match: byId(id), onChange: updateMatch });
 
   return <>
     <header className="bracket-header">
       <div><p className="page-eyebrow">MK1 TOURNAMENT</p><h1 className="page-title">ТУРНИРНАЯ СЕТКА</h1></div>
-      {!isOverlay && <div className="bracket-header__controls">
-        <ModeSwitch activeMode="bracket" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "rating") onShowRating(); }} />
-        <button disabled={!canRecord} title={canRecord ? "" : "Заполните результаты трёх матчей"} type="button" onClick={recordTournament}>{state.ratingRecorded ? "ТУРНИР УЧТЕН" : "ЗАВЕРШИТЬ ТУРНИР"}</button>
-      </div>}
+      {!isOverlay && <ModeSwitch activeMode="bracket" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "rating") onShowRating(); }} />}
     </header>
+    <div className="bracket-tournament-actions">
+      <button disabled={!canRecord} title={canRecord ? "" : "Заполните результаты трёх матчей"} type="button" onClick={recordTournament}>{state.ratingRecorded ? "ТУРНИР УЧТЕН" : "ЗАВЕРШИТЬ ТУРНИР"}</button>
+      {state.ratingRecorded ? <button className={`is-reset ${isResetConfirming ? "is-confirming" : ""}`} type="button" onClick={resetTournament}>{isResetConfirming ? "ПОДТВЕРДИТЬ НОВУЮ СЕТКУ" : "НОВАЯ СЕТКА"}</button> : null}
+    </div>
     <section className="bracket-grid bracket-grid--four" aria-label="Турнирная сетка">
       <div className="bracket-lane bracket-lane--upper bracket-lane--four">
         <div className="bracket-column bracket-column--opening"><MatchCard {...props("semi-1")} /><MatchCard {...props("semi-2")} /></div>

@@ -1809,6 +1809,18 @@ button {
   .bracket-lane--four { width: 38rem; grid-template-columns: 18rem 14rem; gap: 3.5rem; }
 }
 
+/* Bracket actions intentionally sit below the shared tab bar so switching views never shifts it. */
+.bracket-tournament-actions { display: flex; align-items: center; gap: 0.45rem; min-height: 3.5rem; padding: 0.65rem 0.25rem 0; }
+.bracket-tournament-actions > button { min-height: 2.2rem; padding: 0.48rem 0.78rem; color: #241609; background: linear-gradient(135deg, #e1ad55, #995719); border: 1px solid #e5b75f; font-size: 0.64rem; font-weight: 900; letter-spacing: 0.09em; text-transform: uppercase; cursor: pointer; }
+.bracket-tournament-actions > button:disabled { color: #777067; background: rgb(255 255 255 / 4%); border-color: rgb(255 255 255 / 10%); cursor: default; }
+.bracket-tournament-actions > button.is-reset { color: #beb5a9; background: rgb(0 0 0 / 30%); border-color: rgb(255 255 255 / 13%); }
+.bracket-tournament-actions > button.is-reset:hover, .bracket-tournament-actions > button.is-reset:focus-visible { color: #eee6da; border-color: rgb(234 188 107 / 62%); outline: none; }
+.bracket-tournament-actions > button.is-reset.is-confirming { color: #260e0b; background: linear-gradient(135deg, #d25b46, #83241d); border-color: #e47560; }
+
+@media (max-width: 639px) {
+  .bracket-tournament-actions { flex-wrap: wrap; }
+}
+
 /* Rating and result recording */
 .draft-match__side { display: grid; min-width: 0; grid-template-rows: minmax(0, 1fr) auto; }
 .draft-match__side select { min-width: 0; padding: 0.28rem 0.45rem; color: #c9c1b5; background: rgb(0 0 0 / 36%); border: 1px solid rgb(255 255 255 / 9%); border-top: 0; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em; outline: none; text-transform: uppercase; }
