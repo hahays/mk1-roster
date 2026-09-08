@@ -35,7 +35,7 @@ export function RosterControls({
       <div className="app-page-header__top roster-header__top">
         <div className="min-w-0">
         <p className="page-eyebrow">
-          ELKAMUSAEV EVENTS CENTR
+          ELKAMUSAEV EVENTS CENTER
         </p>
         <h1 className="page-title">
           ВЫБЕРИТЕ БОЙЦА

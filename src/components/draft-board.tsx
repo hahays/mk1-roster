@@ -53,7 +53,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
       <header className="app-page-header draft-header">
         <div className="app-page-header__top draft-header__top">
         <div>
-          <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTR</p>
+          <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTER</p>
           <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
         </div>
 
