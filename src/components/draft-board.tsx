@@ -52,7 +52,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
     <>
       <header className="draft-header">
         <div>
-          <p className="page-eyebrow">MK1 TOURNAMENT</p>
+          <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTR</p>
           <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
         </div>
 
@@ -68,8 +68,9 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
           </strong>
         </div>
 
-        {!isOverlay && (
-          <div className="draft-header__controls">
+        <div className="draft-header__nav-row">
+          {!isOverlay && (
+            <div className="draft-header__controls">
             <ModeSwitch activeMode="draft" onChange={(mode) => {
               if (mode === "roster") onShowRoster();
               if (mode === "bracket") onShowBracket();
@@ -82,16 +83,17 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
             <button type="button" disabled={draft.selections.length === 0} onClick={draft.undo}>Отменить ход</button>
             <button type="button" disabled={draft.selections.length === 0} onClick={draft.resetDraft}>Сбросить драфт</button>
             <button className="is-match" type="button" disabled={!draft.isComplete} onClick={() => setIsMatchesOpen(true)}>Матч</button>
-          </div>
-        )}
+            </div>
+          )}
 
-        <div className="draft-rounds">
+          <div className="draft-rounds">
           {draftRoundRules.map((rule) => (
             <div className={draft.currentStep?.round === rule.round ? "is-active" : ""} key={rule.round}>
               <span>РАУНД {rule.round}</span>
               <strong>{rule.bans} {rule.bans === 1 ? "БАН" : "БАНА"} · {rule.picks} {rule.picks === 1 ? "ПИК" : "ПИКА"}</strong>
             </div>
           ))}
+          </div>
         </div>
 
       </header>

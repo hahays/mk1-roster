@@ -34,7 +34,7 @@ export function RosterControls({
     <header className={`roster-header ${isOverlay ? "roster-header--overlay" : ""}`}>
       <div className="min-w-0">
         <p className="page-eyebrow">
-          MK CAPTAIN MODE
+          ELKAMUSAEV EVENTS CENTR
         </p>
         <h1 className="page-title">
           ВЫБЕРИТЕ БОЙЦА

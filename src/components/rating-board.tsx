@@ -59,9 +59,9 @@ export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowB
   return (
     <>
       <header className="rating-header">
-        <div><p className="page-eyebrow">MK1 TOURNAMENT</p><h1 className="page-title">РЕЙТИНГ ИГРОКОВ</h1></div>
-        {!isOverlay && <ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); }} />}
+        <div><p className="page-eyebrow">ELKAMUSAEV EVENTS CENTR</p><h1 className="page-title">РЕЙТИНГ ИГРОКОВ</h1></div>
       </header>
+      {!isOverlay && <div className="page-mode-row"><ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); }} /></div>}
 
       <section className="rating-panel" aria-label="Рейтинг игроков">
         <div className="rating-panel__toolbar">
