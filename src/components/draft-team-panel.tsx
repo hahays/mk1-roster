@@ -54,7 +54,7 @@ export function DraftTeamPanel({
             );
           })
         ) : (
-          <li className="draft-team__empty">Команда не распределена</li>
+          <li className="draft-team__empty">Team not assigned</li>
         )}
       </ol>
 
@@ -76,7 +76,7 @@ export function DraftTeamPanel({
         <p>{bans.map(({ fighterId }) => fightersById.get(fighterId)?.name).join(" · ") || "—"}</p>
       </div>
 
-      <div className="draft-team__pick-portraits" aria-label={`Выбранные бойцы: ${name}`}>
+      <div className="draft-team__pick-portraits" aria-label={`Selected fighters: ${name}`}>
         {picks.map(({ fighterId }) => {
           const fighter = fightersById.get(fighterId);
           return fighter ? <img alt={fighter.name} key={fighterId} src={getAssetUrl(fighter.image)} title={fighter.name} /> : null;

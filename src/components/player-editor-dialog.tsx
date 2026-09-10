@@ -48,10 +48,10 @@ export function PlayerEditorDialog({
   function submit(event: React.FormEvent) {
     event.preventDefault();
     onSave(
-      draftPlayers.map((player, index) => player.trim() || `Игрок ${String(index + 1).padStart(2, "0")}`),
+      draftPlayers.map((player, index) => player.trim() || `Player ${String(index + 1).padStart(2, "0")}`),
       {
-        fire: draftTeamNames.fire.trim() || "Команда X",
-        shadow: draftTeamNames.shadow.trim() || "Команда Y",
+        fire: draftTeamNames.fire.trim() || "Team X",
+        shadow: draftTeamNames.shadow.trim() || "Team Y",
       },
       draftAssignments,
     );
@@ -62,16 +62,16 @@ export function PlayerEditorDialog({
       <form className="player-editor" onSubmit={submit} onMouseDown={(event) => event.stopPropagation()}>
         <div className="player-editor__heading">
           <div>
-            <h2>ИГРОКИ</h2>
+            <h2>PLAYERS</h2>
           </div>
-          <button type="button" onClick={onCancel} aria-label="Закрыть">×</button>
+          <button type="button" onClick={onCancel} aria-label="Close">×</button>
         </div>
 
         <div className="player-editor__teams">
           <label>
             <span>TEAM</span>
             <input
-              aria-label="Название команды X"
+              aria-label="Team name X"
               value={draftTeamNames.fire}
               onChange={(event) => setDraftTeamNames((current) => ({ ...current, fire: event.target.value }))}
             />
@@ -79,7 +79,7 @@ export function PlayerEditorDialog({
           <label>
             <span>TEAM</span>
             <input
-              aria-label="Название команды Y"
+              aria-label="Team name Y"
               value={draftTeamNames.shadow}
               onChange={(event) => setDraftTeamNames((current) => ({ ...current, shadow: event.target.value }))}
             />
@@ -104,12 +104,12 @@ export function PlayerEditorDialog({
                     setDraggedPlayerIndex(null);
                     setDropTargetIndex(null);
                   }}
-                  title="Перетащите на игрока другой команды, чтобы поменять их местами"
+                  title="Drag onto a player on the other team to swap places"
                 >
                   <span>{String(playerIndex + 1).padStart(2, "0")}</span>
                   <input value={draftPlayers[playerIndex]} onChange={(event) => updatePlayer(playerIndex, event.target.value)} />
                   <button
-                    aria-label={`Переместить ${draftPlayers[playerIndex]}`}
+                    aria-label={`Move ${draftPlayers[playerIndex]}`}
                     className="player-editor__drag-handle"
                     draggable
                     type="button"
@@ -122,7 +122,7 @@ export function PlayerEditorDialog({
                       event.dataTransfer.setData("text/plain", String(playerIndex));
                       setDraggedPlayerIndex(playerIndex);
                     }}
-                    title="Зажмите и перетащите на игрока другой команды"
+                    title="Drag onto a player on the other team"
                   >
                     ⠿
                   </button>
@@ -133,8 +133,8 @@ export function PlayerEditorDialog({
         </div>
 
         <div className="player-editor__actions">
-          <button className="dialog-button" type="button" onClick={onCancel}>Отмена</button>
-          <button className="dialog-button dialog-button--accent" type="submit">Сохранить</button>
+          <button className="dialog-button" type="button" onClick={onCancel}>Cancel</button>
+          <button className="dialog-button dialog-button--accent" type="submit">Save</button>
         </div>
       </form>
     </div>

@@ -76,12 +76,12 @@ export function DraftMatchesDialog({
 
   return (
     <div className="dialog-backdrop" role="presentation" onMouseDown={onClose}>
-      <section className="draft-matches" aria-modal="true" aria-label="Матч" role="dialog" onMouseDown={(event) => event.stopPropagation()}>
+      <section className="draft-matches" aria-modal="true" aria-label="Match" role="dialog" onMouseDown={(event) => event.stopPropagation()}>
         <header className="draft-matches__header">
-          <h2>МАТЧ</h2>
-          <button aria-label="Закрыть" type="button" onClick={onClose}>×</button>
+          <h2>MATCH</h2>
+          <button aria-label="Close" type="button" onClick={onClose}>×</button>
         </header>
-        {isComplete && <p className="draft-matches__winner"><span className="draft-matches__winner-label">ПОБЕДА:</span><strong>{winningTeam}</strong><em>{fireWins} : {shadowWins}</em></p>}
+        {isComplete && <p className="draft-matches__winner"><span className="draft-matches__winner-label">WINNER:</span><strong>{winningTeam}</strong><em>{fireWins} : {shadowWins}</em></p>}
         <div className="draft-matches__list">
           {picks.fire.map((fireId, index) => {
             const shadowId = picks.shadow[index];
@@ -93,14 +93,14 @@ export function DraftMatchesDialog({
 
             return (
               <article className="draft-match" key={`${fireId}-${shadowId}`}>
-                <span className="draft-match__number">БОЙ {String(index + 1).padStart(2, "0")}</span>
+                <span className="draft-match__number">FIGHT {String(index + 1).padStart(2, "0")}</span>
                 <div className="draft-match__side">
                   <button className={`draft-match__fighter draft-match__fighter--fire ${winnerId === fire.id ? "is-winner" : winnerId ? "is-defeated" : ""}`} disabled={ratingRecorded} type="button" onClick={() => onSelectWinner(index, fire.id)}>
                     <img alt="" src={getAssetUrl(fire.image)} />
                     <span>{fire.name}</span>
                     <small>{teamNames.fire}</small>
                   </button>
-                  <select aria-label={`Игрок ${teamNames.fire} в бою ${index + 1}`} disabled={ratingRecorded} value={participant.firePlayerIndex} onChange={(event) => onSelectParticipant(index, "fire", Number(event.target.value))}>
+                  <select aria-label={`Player ${teamNames.fire} in fight ${index + 1}`} disabled={ratingRecorded} value={participant.firePlayerIndex} onChange={(event) => onSelectParticipant(index, "fire", Number(event.target.value))}>
                     {teamPlayers.fire.map((player, playerIndex) => <option key={playerIndex} value={playerIndex}>{player}</option>)}
                   </select>
                 </div>
@@ -111,7 +111,7 @@ export function DraftMatchesDialog({
                     <span>{shadow.name}</span>
                     <small>{teamNames.shadow}</small>
                   </button>
-                  <select aria-label={`Игрок ${teamNames.shadow} в бою ${index + 1}`} disabled={ratingRecorded} value={participant.shadowPlayerIndex} onChange={(event) => onSelectParticipant(index, "shadow", Number(event.target.value))}>
+                  <select aria-label={`Player ${teamNames.shadow} in fight ${index + 1}`} disabled={ratingRecorded} value={participant.shadowPlayerIndex} onChange={(event) => onSelectParticipant(index, "shadow", Number(event.target.value))}>
                     {teamPlayers.shadow.map((player, playerIndex) => <option key={playerIndex} value={playerIndex}>{player}</option>)}
                   </select>
                 </div>
@@ -120,9 +120,9 @@ export function DraftMatchesDialog({
           })}
         </div>
         <footer className="draft-matches__footer">
-          <span>{ratingRecorded ? "РЕЗУЛЬТАТЫ УЧТЕНЫ В РЕЙТИНГЕ" : "ПОБЕДА В МАТЧЕ: +3 · ПОБЕДА В БОЮ: +1"}</span>
+          <span>{ratingRecorded ? "RESULTS ADDED TO RATING" : "MATCH WIN: +3 · FIGHT WIN: +1"}</span>
           <button className="draft-matches__record" disabled={!isComplete || ratingRecorded} type="button" onClick={recordResults}>
-            {ratingRecorded ? "УЧТЕНО" : "ЗАВЕРШИТЬ И НАЧИСЛИТЬ"}
+            {ratingRecorded ? "RECORDED" : "FINISH & RECORD"}
           </button>
         </footer>
       </section>

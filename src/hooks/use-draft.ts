@@ -22,8 +22,8 @@ function createSessionId() {
 
 const defaultState: DraftState = {
   sessionId: createSessionId(),
-  players: Array.from({ length: PLAYER_COUNT }, (_, index) => `Игрок ${String(index + 1).padStart(2, "0")}`),
-  teamNames: { fire: "Команда X", shadow: "Команда Y" },
+  players: Array.from({ length: PLAYER_COUNT }, (_, index) => `Player ${String(index + 1).padStart(2, "0")}`),
+  teamNames: { fire: "Team X", shadow: "Team Y" },
   assignments: { fire: [], shadow: [] },
   selections: [],
   matchWinners: [],
@@ -41,10 +41,10 @@ function readDraftState(): DraftState {
 
     return {
       sessionId: typeof stored.sessionId === "string" ? stored.sessionId : createSessionId(),
-      players: stored.players.map((player, index) => player || defaultState.players[index]),
+      players: stored.players.map((player, index) => player?.replace(/^Игрок (\d+)$/, "Player $1") || defaultState.players[index]),
       teamNames: {
-        fire: stored.teamNames?.fire === "TEAM FIRE" || stored.teamNames?.fire === "Команда один" ? defaultState.teamNames.fire : stored.teamNames?.fire || defaultState.teamNames.fire,
-        shadow: stored.teamNames?.shadow === "TEAM SHADOW" || stored.teamNames?.shadow === "Команда два" ? defaultState.teamNames.shadow : stored.teamNames?.shadow || defaultState.teamNames.shadow,
+        fire: stored.teamNames?.fire === "TEAM FIRE" || ["Команда один", "Команда X"].includes(stored.teamNames?.fire ?? "") ? defaultState.teamNames.fire : stored.teamNames?.fire || defaultState.teamNames.fire,
+        shadow: stored.teamNames?.shadow === "TEAM SHADOW" || ["Команда два", "Команда Y"].includes(stored.teamNames?.shadow ?? "") ? defaultState.teamNames.shadow : stored.teamNames?.shadow || defaultState.teamNames.shadow,
       },
       assignments: {
         fire: Array.isArray(stored.assignments?.fire) ? stored.assignments.fire : [],

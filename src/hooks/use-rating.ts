@@ -54,7 +54,7 @@ function toEntryMap(results: RatingResult[]) {
   });
 
   return [...entries.values()].sort((left, right) => (
-    right.points - left.points || right.wins - left.wins || left.name.localeCompare(right.name, "ru")
+    right.points - left.points || right.wins - left.wins || left.name.localeCompare(right.name, "en")
   ));
 }
 

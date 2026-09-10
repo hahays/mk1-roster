@@ -44,15 +44,15 @@ export function CharacterPickerDialog({ fighters, selectedId, onSelect, onClose 
       }}
     >
       <div className="king-picker__header">
-        <h2 id={titleId}>Выберите персонажа</h2>
-        <button className="king-picker__close" type="button" aria-label="Закрыть выбор персонажа" onClick={onClose}><span aria-hidden="true" /></button>
+        <h2 id={titleId}>Choose a character</h2>
+        <button className="king-picker__close" type="button" aria-label="Close character picker" onClick={onClose}><span aria-hidden="true" /></button>
       </div>
       <input
         ref={searchRef}
         className="king-picker__search"
         type="search"
-        aria-label="Поиск персонажа"
-        placeholder="Поиск персонажа..."
+        aria-label="Search characters"
+        placeholder="Search characters..."
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
@@ -70,7 +70,7 @@ export function CharacterPickerDialog({ fighters, selectedId, onSelect, onClose 
           </button>
         ))}
       </div>
-      {visibleFighters.length === 0 ? <p className="king-picker__empty" role="status">Персонажи не найдены.</p> : null}
+      {visibleFighters.length === 0 ? <p className="king-picker__empty" role="status">No characters found.</p> : null}
     </dialog>
   );
 }

@@ -1997,7 +1997,7 @@ button {
   .draft-header__controls { min-width: 0; width: 100%; }
   .mode-switch {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 0.85fr) minmax(0, 1.5fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 0.85fr) minmax(0, 1.5fr) minmax(0, 0.8fr);
     flex: 0 0 100%;
     width: 100%;
     min-width: 0;
@@ -2033,4 +2033,17 @@ button {
   .bracket-lane--top8 { width: max-content; grid-template-columns: 17rem 16rem 14rem 14rem; gap: 3.5rem; }
   .player-editor, .draft-matches { min-width: 0; max-width: 100%; }
   .player-editor__teams, .player-editor__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Keep the same six-tab chrome on compact screens, including King of the Hill. */
+@media (max-width: 900px) {
+  .app-shell[data-view] .app-page-header { padding: 0 4px; }
+  .app-shell[data-view] .app-page-header__top { height: 70px; min-height: 70px; flex-direction: row; flex-wrap: nowrap; align-items: center; gap: 10px; }
+  .app-shell[data-view] .page-title { font-size: clamp(23px, 4.5vw, 32px); }
+  .app-shell[data-view] .page-eyebrow { margin-bottom: 7px; font-size: 10px; letter-spacing: .12em; }
+  .app-shell[data-view] .app-page-nav, .app-shell[data-view] .page-mode-row { height: auto; min-height: 48px; margin-top: 5px; padding: 5px 0 9px; }
+  .app-shell[data-view] .mode-switch { grid-template-columns: .85fr .8fr .9fr .85fr 1.5fr .8fr; }
+  .app-shell[data-view] .mode-switch__button { min-height: 34px; font-size: clamp(8px, 2.2vw, 10px); padding: 5px 2px; letter-spacing: .02em; }
+  .app-shell[data-view] .draft-header__status { flex-shrink: 0; max-width: 100px; }
+  .app-shell[data-view] .draft-header__status strong { font-size: 10px; overflow-wrap: anywhere; }
 }

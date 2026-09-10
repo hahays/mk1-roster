@@ -8,6 +8,7 @@ export type KingPlayer = {
   fighterId: string;
   nickname: string;
   lives: boolean[];
+  donatedLives: boolean[];
 };
 
 export type KingOfHillState = {
@@ -21,6 +22,7 @@ function createDefaultState(): KingOfHillState {
       fighterId: `fighter-${slug}`,
       nickname: "",
       lives: Array<boolean>(index === 0 ? 5 : 3).fill(true),
+      donatedLives: [],
     })),
     prizePool: "",
   };
@@ -43,7 +45,11 @@ function readState(): KingOfHillState {
       if (record.version === 1 && Array.isArray(record.players) && record.players.length === 4
         && record.players.every(isPlayer) && typeof record.prizePool === "string" && record.prizePool.length <= 80) {
         return {
-          players: record.players.map(({ fighterId, nickname, lives }) => ({ fighterId, nickname, lives: [...lives] })),
+          players: record.players.map(({ fighterId, nickname, lives, donatedLives }, index) => ({
+            fighterId, nickname, lives: Array.from({ length: index === 0 ? 5 : 3 }, (_, life) => lives[life] ?? true),
+            donatedLives: Array.isArray(donatedLives) && donatedLives.every((life) => typeof life === "boolean")
+              ? donatedLives.slice(0, index === 0 ? 5 : 2) : [],
+          })),
           prizePool: record.prizePool,
         };
       }
@@ -88,20 +94,23 @@ export function useKingOfHill() {
     });
   }
 
-  function setLifeCount(index: number, count: number) {
-    if (!Number.isFinite(count)) return;
-    const boundedCount = Math.max(1, Math.min(10, Math.trunc(count)));
-    setState((current) => ({
-      ...current,
-      players: current.players.map((player, position) => position === index
-        ? { ...player, lives: Array.from({ length: boundedCount }, (_, life) => player.lives[life] ?? true) }
-        : player),
-    }));
-  }
-
   function setPrizePool(value: string) {
     setState((current) => ({ ...current, prizePool: value.slice(0, 80) }));
   }
 
-  return { state, updatePlayer, toggleLife, setLifeCount, setPrizePool };
+  function changeDonatedLife(index: number, action: "add" | "remove" | number) {
+    setState((current) => ({
+      ...current,
+      players: current.players.map((player, position) => {
+        if (position !== index) return player;
+        const lives = player.donatedLives;
+        if (action === "add") return lives.length < (index === 0 ? 5 : 2)
+          ? { ...player, donatedLives: [...lives, true] } : player;
+        if (action === "remove") return { ...player, donatedLives: lives.slice(0, -1) };
+        return { ...player, donatedLives: lives.map((alive, life) => life === action ? !alive : alive) };
+      }),
+    }));
+  }
+
+  return { state, updatePlayer, toggleLife, setPrizePool, changeDonatedLife };
 }

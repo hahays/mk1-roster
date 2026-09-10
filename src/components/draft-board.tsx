@@ -14,12 +14,12 @@ type DraftBoardProps = {
   isOverlay: boolean;
   onShowBracket: () => void;
   onShowRating: () => void;
-  onShowKing: () => void;
+  onShowTeams: () => void; onShowKing: () => void;
   onShowRoster: () => void;
   onRecordRating: (results: RatingResult[]) => void;
 };
 
-export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowKing, onShowRoster, onRecordRating }: DraftBoardProps) {
+export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowTeams, onShowKing, onShowRoster, onRecordRating }: DraftBoardProps) {
   const draft = useDraft();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isMatchesOpen, setIsMatchesOpen] = useState(false);
@@ -55,18 +55,18 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
         <div className="app-page-header__top">
         <div>
           <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTER</p>
-          <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
+          <h1 className="page-title">TEAM DRAFT</h1>
         </div>
 
         <div className="draft-header__status">
           <strong>
             {isRandomizing
-              ? "ФОРМИРУЕМ КОМАНДЫ"
+              ? "FORMING TEAMS"
               : !draft.hasTeams
-              ? "РАСПРЕДЕЛИТЕ ИГРОКОВ"
+              ? "ASSIGN PLAYERS"
               : draft.isComplete
-                ? "ДРАФТ ЗАВЕРШЁН"
-                : `РАУНД ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "БАН" : "ПИК"}`}
+                ? "DRAFT COMPLETE"
+                : `ROUND ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "BAN" : "PICK"}`}
           </strong>
         </div>
         </div>
@@ -79,23 +79,23 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
               if (mode === "roster") onShowRoster();
               if (mode === "bracket") onShowBracket();
               if (mode === "rating") onShowRating();
-              if (mode === "king") onShowKing();
+              if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams();
             }} />
-            <button type="button" onClick={() => setIsEditorOpen(true)}>Игроки</button>
+            <button type="button" onClick={() => setIsEditorOpen(true)}>Players</button>
             <button className="is-accent" type="button" disabled={isRandomizing} onClick={randomizeTeams}>
-              {isRandomizing ? "Распределяем..." : "Распределить"}
+              {isRandomizing ? "Shuffling..." : "Shuffle"}
             </button>
-            <button type="button" disabled={draft.selections.length === 0} onClick={draft.undo}>Отменить ход</button>
-            <button type="button" disabled={draft.selections.length === 0} onClick={draft.resetDraft}>Сбросить драфт</button>
-            <button className="is-match" type="button" disabled={!draft.isComplete} onClick={() => setIsMatchesOpen(true)}>Матч</button>
+            <button type="button" disabled={draft.selections.length === 0} onClick={draft.undo}>Undo pick</button>
+            <button type="button" disabled={draft.selections.length === 0} onClick={draft.resetDraft}>Reset draft</button>
+            <button className="is-match" type="button" disabled={!draft.isComplete} onClick={() => setIsMatchesOpen(true)}>Match</button>
             </div>
           )}
 
           <div className="draft-rounds">
           {draftRoundRules.map((rule) => (
             <div className={draft.currentStep?.round === rule.round ? "is-active" : ""} key={rule.round}>
-              <span>РАУНД {rule.round}</span>
-              <strong>{rule.bans} {rule.bans === 1 ? "БАН" : "БАНА"} · {rule.picks} {rule.picks === 1 ? "ПИК" : "ПИКА"}</strong>
+              <span>ROUND {rule.round}</span>
+              <strong>{rule.bans} {rule.bans === 1 ? "BAN" : "BANS"} · {rule.picks} {rule.picks === 1 ? "PICK" : "PICKS"}</strong>
             </div>
           ))}
           </div>
