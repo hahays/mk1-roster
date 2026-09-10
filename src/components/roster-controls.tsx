@@ -7,6 +7,7 @@ type RosterControlsProps = {
   isOverlay: boolean;
   onFilterChange: (filter: RosterFilter) => void;
   onResetRequest: () => void;
+  onShowKing: () => void;
   onShowBracket: () => void;
   onShowDraft: () => void;
   onShowRating: () => void;
@@ -25,6 +26,7 @@ export function RosterControls({
   isOverlay,
   onFilterChange,
   onResetRequest,
+  onShowKing,
   onShowBracket,
   onShowDraft,
   onShowRating,
@@ -64,6 +66,7 @@ export function RosterControls({
               if (mode === "draft") onShowDraft();
               if (mode === "bracket") onShowBracket();
               if (mode === "rating") onShowRating();
+              if (mode === "king") onShowKing();
             }} />
             <div className="flex overflow-hidden rounded-sm border border-white/10 bg-black/30" role="group" aria-label="Roster view">
               {filters.map((filter) => (

@@ -1906,6 +1906,7 @@ button {
 /* One shared page chrome: every mode uses the same title and navigation geometry. */
 .app-page-header,
 .roster-header,
+.draft-header,
 .bracket-header,
 .rating-header {
   display: block;
@@ -1913,8 +1914,7 @@ button {
 }
 
 .app-page-header__top,
-.app-page-header--single,
-.bracket-header {
+.app-page-header--single {
   display: flex;
   min-height: 5.4rem;
   align-items: flex-end;
@@ -1973,4 +1973,64 @@ button {
   .rating-table { overflow-x: auto; }
   .rating-table__head, .rating-table__row { width: 47rem; }
   .draft-match { grid-template-columns: 2.8rem minmax(0, 1fr) 1.6rem minmax(0, 1fr); }
+}
+
+/* Shared mobile navigation and containment for every page. */
+@media (max-width: 900px) {
+  html { scrollbar-gutter: auto; }
+  .app-shell__content { min-width: 0; padding: 8px 12px !important; }
+  .app-shell__content > * { min-width: 0; max-width: 100%; }
+  .app-page-header__top { flex-wrap: wrap; gap: 8px; }
+  .app-page-header__top > * { min-width: 0; max-width: 100%; }
+  .page-title { font-size: clamp(26px, 5vw, 38px); overflow-wrap: anywhere; }
+  .page-eyebrow { font-size: 10px; letter-spacing: 0.14em; }
+
+  .app-page-nav, .page-mode-row {
+    height: auto;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 6px 0 10px;
+  }
+  .app-page-nav > div, .page-mode-row > div,
+  .draft-header__controls { min-width: 0; width: 100%; }
+  .mode-switch {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 0.85fr) minmax(0, 1.5fr);
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+  }
+  .mode-switch__button {
+    min-width: 0;
+    min-height: 40px;
+    padding: 5px 3px;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    white-space: normal;
+  }
+  .draft-header__controls, .bracket-tournament-actions { flex-wrap: wrap; }
+  .draft-header__status { min-width: 0; align-items: flex-start; text-align: left; }
+  .draft-header .app-page-header__top { flex-direction: column; align-items: flex-start; }
+  .draft-layout { display: flex; flex-direction: column; min-width: 0; overflow: visible; }
+  .draft-team, .draft-roster { min-width: 0; width: 100%; }
+  .draft-roster { min-height: 0; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: none; }
+  .draft-fighter-card { aspect-ratio: 0.82; }
+  .draft-rounds { flex-wrap: wrap; justify-content: flex-start; }
+
+  .rating-panel { min-width: 0; padding: 12px; }
+  .rating-panel__toolbar { flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+  .rating-month { min-width: 0; max-width: 100%; }
+  .rating-month .mk-select { min-width: 0; flex: 1; }
+  .rating-empty { min-height: 12rem; padding: 20px 0; }
+  .rating-empty strong { font-size: clamp(20px, 4vw, 28px); overflow-wrap: anywhere; }
+  .rating-table { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+  .rating-table__head, .rating-table__row { width: 47rem; }
+
+  /* Wide tournament rounds scroll inside the board, leaving tabs in reach. */
+  .bracket-grid { min-width: 0; width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+  .bracket-lane--top8 { width: max-content; grid-template-columns: 17rem 16rem 14rem 14rem; gap: 3.5rem; }
+  .player-editor, .draft-matches { min-width: 0; max-width: 100%; }
+  .player-editor__teams, .player-editor__grid { grid-template-columns: minmax(0, 1fr); }
 }

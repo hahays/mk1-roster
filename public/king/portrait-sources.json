@@ -1,0 +1,317 @@
+[
+  {
+    "id": "t-1000",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/t-1000/hero.webp",
+    "bytes": 91846,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "conan",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/conan/hero.webp",
+    "bytes": 121136,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "ghostface",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/ghostface/hero.webp",
+    "bytes": 111612,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "noob-saibot",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/noob-saibot/hero.webp",
+    "bytes": 162760,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "cyrax",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/cyrax/hero.webp",
+    "bytes": 177280,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "sektor",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/sektor/hero.webp",
+    "bytes": 158890,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "takeda",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/takeda/hero.webp",
+    "bytes": 134632,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "homelander",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/homelander/hero.webp",
+    "bytes": 98742,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "ermac",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/ermac/hero.webp",
+    "bytes": 112940,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "peacemaker",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/peacemaker/hero.webp",
+    "bytes": 79344,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "quan-chi",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/quan-chi/hero.webp",
+    "bytes": 188578,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "omni-man",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/omni-man/hero.webp",
+    "bytes": 73374,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "reiko",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/reiko/hero.webp",
+    "bytes": 102594,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "shang-tsung",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/shang-tsung/hero.webp",
+    "bytes": 94116,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "nitara",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/nitara/hero.webp",
+    "bytes": 99842,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "shao-kahn",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/shao-kahn/hero.webp",
+    "bytes": 103448,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "sindel",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/sindel/hero.webp",
+    "bytes": 88700,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "ashrah",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/ashrah/hero.webp",
+    "bytes": 108300,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "havik",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/havik/hero.webp",
+    "bytes": 94326,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "reptile",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/reptile/hero.webp",
+    "bytes": 95004,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "geras",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/geras/hero.webp",
+    "bytes": 94888,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "tanya",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/tanya/hero.webp",
+    "bytes": 105842,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "baraka",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/baraka/hero.webp",
+    "bytes": 95348,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "li-mei",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/li-mei/hero.webp",
+    "bytes": 96880,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "smoke",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/smoke/hero.webp",
+    "bytes": 100572,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "rain",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/rain/hero.webp",
+    "bytes": 109132,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "raiden",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/raiden/hero.webp",
+    "bytes": 112528,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "mileena",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/mileena/hero.webp",
+    "bytes": 99984,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "kung-lao",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/kung-lao/hero.webp",
+    "bytes": 82208,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "kenshi-takahashi",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/kenshi-takahashi/hero.webp",
+    "bytes": 97544,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "johnny-cage",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/johnny-cage/hero.webp",
+    "bytes": 62490,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "kitana",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/kitana/hero.webp",
+    "bytes": 103130,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "scorpion",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/scorpion/hero.webp",
+    "bytes": 88340,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "sub-zero",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/sub-zero/hero.webp",
+    "bytes": 106850,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  },
+  {
+    "id": "liu-kang",
+    "url": "https://cdn-mk1.mortalkombat.com/roster/liu-kang/hero.webp",
+    "bytes": 96090,
+    "format": "VP8X",
+    "alpha": true,
+    "width": 1280,
+    "height": 1280
+  }
+]

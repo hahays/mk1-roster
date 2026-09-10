@@ -1,4 +1,4 @@
-export type AppMode = "roster" | "draft" | "bracket" | "rating";
+export type AppMode = "roster" | "draft" | "bracket" | "rating" | "king";
 
 type ModeSwitchProps = {
   activeMode: AppMode;
@@ -10,6 +10,7 @@ const modes: Array<{ label: string; value: AppMode }> = [
   { label: "Draft", value: "draft" },
   { label: "Bracket", value: "bracket" },
   { label: "Rating", value: "rating" },
+  { label: "King of the Hill", value: "king" },
 ];
 
 export function ModeSwitch({ activeMode, onChange }: ModeSwitchProps) {

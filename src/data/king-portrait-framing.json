@@ -1,0 +1,142 @@
+{
+  "ashrah": {
+    "viewBox": "209 0 592 742",
+    "challengerViewBox": "209 0 592 640"
+  },
+  "baraka": {
+    "viewBox": "307 8 645 734",
+    "challengerViewBox": "314 8 626 632"
+  },
+  "conan": {
+    "viewBox": "174 17 706 725",
+    "challengerViewBox": "174 17 702 623"
+  },
+  "cyrax": {
+    "viewBox": "197 17 663 725",
+    "challengerViewBox": "283 17 536 623"
+  },
+  "ermac": {
+    "viewBox": "299 12 568 730",
+    "challengerViewBox": "307 12 559 628"
+  },
+  "geras": {
+    "viewBox": "256 27 668 715",
+    "challengerViewBox": "285 27 639 613"
+  },
+  "ghostface": {
+    "viewBox": "192 45 680 697",
+    "challengerViewBox": "192 45 643 595"
+  },
+  "havik": {
+    "viewBox": "280 0 687 742",
+    "challengerViewBox": "286 0 681 640"
+  },
+  "homelander": {
+    "viewBox": "336 6 580 736",
+    "challengerViewBox": "336 6 580 634"
+  },
+  "johnny-cage": {
+    "viewBox": "253 9 656 733",
+    "challengerViewBox": "253 9 656 631"
+  },
+  "kenshi-takahashi": {
+    "viewBox": "328 4 933 738",
+    "challengerViewBox": "331 4 930 636"
+  },
+  "kitana": {
+    "viewBox": "232 32 650 710",
+    "challengerViewBox": "232 32 646 608"
+  },
+  "kung-lao": {
+    "viewBox": "331 0 626 742",
+    "challengerViewBox": "353 0 597 640"
+  },
+  "li-mei": {
+    "viewBox": "402 2 453 740",
+    "challengerViewBox": "402 2 453 638"
+  },
+  "liu-kang": {
+    "viewBox": "381 0 499 742",
+    "challengerViewBox": "416 0 464 640"
+  },
+  "mileena": {
+    "viewBox": "154 26 843 716",
+    "challengerViewBox": "154 26 843 614"
+  },
+  "nitara": {
+    "viewBox": "163 31 791 711",
+    "challengerViewBox": "180 31 774 609"
+  },
+  "noob-saibot": {
+    "viewBox": "72 47 873 695",
+    "challengerViewBox": "188 47 757 593"
+  },
+  "omni-man": {
+    "viewBox": "158 12 833 730",
+    "challengerViewBox": "158 12 761 628"
+  },
+  "peacemaker": {
+    "viewBox": "326 21 588 721",
+    "challengerViewBox": "326 21 573 619"
+  },
+  "quan-chi": {
+    "viewBox": "0 20 1280 722",
+    "challengerViewBox": "0 20 1280 620"
+  },
+  "raiden": {
+    "viewBox": "220 4 766 738",
+    "challengerViewBox": "242 4 744 636"
+  },
+  "rain": {
+    "viewBox": "221 8 821 734",
+    "challengerViewBox": "221 8 769 632"
+  },
+  "reiko": {
+    "viewBox": "373 0 559 742",
+    "challengerViewBox": "373 0 559 640"
+  },
+  "reptile": {
+    "viewBox": "326 13 488 729",
+    "challengerViewBox": "326 13 488 627"
+  },
+  "scorpion": {
+    "viewBox": "374 11 473 731",
+    "challengerViewBox": "418 11 429 629"
+  },
+  "sektor": {
+    "viewBox": "231 69 734 673",
+    "challengerViewBox": "261 69 628 571"
+  },
+  "shang-tsung": {
+    "viewBox": "286 12 636 730",
+    "challengerViewBox": "286 12 636 628"
+  },
+  "shao-kahn": {
+    "viewBox": "103 0 843 742",
+    "challengerViewBox": "103 0 823 640"
+  },
+  "sindel": {
+    "viewBox": "443 39 479 703",
+    "challengerViewBox": "443 39 479 601"
+  },
+  "smoke": {
+    "viewBox": "388 13 635 729",
+    "challengerViewBox": "411 13 508 627"
+  },
+  "sub-zero": {
+    "viewBox": "100 9 859 733",
+    "challengerViewBox": "100 9 850 631"
+  },
+  "t-1000": {
+    "viewBox": "0 12 867 730",
+    "challengerViewBox": "0 12 867 628"
+  },
+  "takeda": {
+    "viewBox": "266 0 676 742",
+    "challengerViewBox": "308 0 634 640"
+  },
+  "tanya": {
+    "viewBox": "280 23 685 719",
+    "challengerViewBox": "280 23 626 617"
+  }
+}

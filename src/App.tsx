@@ -3,6 +3,7 @@ import rosterData from "./data/roster.json";
 import { DraftBoard } from "./components/draft-board";
 import { BracketBoard } from "./components/bracket-board";
 import { RatingBoard } from "./components/rating-board";
+import { KingOfHillBoard } from "./components/king-of-hill-board";
 import { FighterCard } from "./components/fighter-card";
 import { ResetDialog } from "./components/reset-dialog";
 import { RosterControls } from "./components/roster-controls";
@@ -24,8 +25,8 @@ function readPageSettings() {
 
   return {
     filter,
-    mode: ["draft", "bracket", "rating"].includes(params.get("mode") ?? "")
-      ? params.get("mode") as "draft" | "bracket" | "rating"
+    mode: ["draft", "bracket", "rating", "king"].includes(params.get("mode") ?? "")
+      ? params.get("mode") as AppMode
       : "roster" as const,
     isOverlay: params.get("overlay") === "1",
     isTransparent: params.get("background") === "transparent",
@@ -44,6 +45,7 @@ function App() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (event.target instanceof HTMLElement && (event.target.closest("input, textarea, select, dialog") || event.target.isContentEditable)) return;
       if (event.key === "Escape") {
         setIsResetOpen(false);
       }
@@ -73,7 +75,7 @@ function App() {
     const url = new URL(window.location.href);
     setMode(nextMode);
 
-    if (nextMode === "draft" || nextMode === "bracket" || nextMode === "rating") {
+    if (nextMode !== "roster") {
       url.searchParams.set("mode", nextMode);
     } else {
       url.searchParams.delete("mode");
@@ -85,11 +87,14 @@ function App() {
   return (
     <main
       className={`app-shell ${pageSettings.isTransparent ? "app-shell--transparent" : ""}`}
-      data-view={mode === "draft" || mode === "bracket" || mode === "rating" ? mode : filter}
+      data-view={mode !== "roster" ? mode : filter}
     >
       <div className="app-shell__content relative z-10 flex min-h-screen w-full flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
-        {mode === "draft" ? (
+        {mode === "king" ? (
+          <KingOfHillBoard fighters={roster.filter((fighter) => fighter.group === "fighter")} isOverlay={pageSettings.isOverlay} onChangeMode={changeMode} />
+        ) : mode === "draft" ? (
           <DraftBoard
+            onShowKing={() => changeMode("king")}
             fighters={roster.filter((fighter) => fighter.group === "fighter")}
             isOverlay={pageSettings.isOverlay}
             onShowBracket={() => changeMode("bracket")}
@@ -99,6 +104,7 @@ function App() {
           />
         ) : mode === "bracket" ? (
           <BracketBoard
+            onShowKing={() => changeMode("king")}
             isOverlay={pageSettings.isOverlay}
             onRecordRating={rating.recordResults}
             onShowDraft={() => changeMode("draft")}
@@ -107,6 +113,7 @@ function App() {
           />
         ) : mode === "rating" ? (
           <RatingBoard
+            onShowKing={() => changeMode("king")}
             entries={rating.entries}
             isOverlay={pageSettings.isOverlay}
             months={rating.months}
@@ -119,6 +126,7 @@ function App() {
         ) : (
           <>
             <RosterControls
+              onShowKing={() => changeMode("king")}
               activeFilter={filter}
               eliminatedCount={eliminated.size}
               isOverlay={pageSettings.isOverlay}

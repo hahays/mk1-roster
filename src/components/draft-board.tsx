@@ -14,11 +14,12 @@ type DraftBoardProps = {
   isOverlay: boolean;
   onShowBracket: () => void;
   onShowRating: () => void;
+  onShowKing: () => void;
   onShowRoster: () => void;
   onRecordRating: (results: RatingResult[]) => void;
 };
 
-export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowRoster, onRecordRating }: DraftBoardProps) {
+export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowKing, onShowRoster, onRecordRating }: DraftBoardProps) {
   const draft = useDraft();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isMatchesOpen, setIsMatchesOpen] = useState(false);
@@ -50,7 +51,8 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
 
   return (
     <>
-      <header className="draft-header">
+      <header className="app-page-header draft-header">
+        <div className="app-page-header__top">
         <div>
           <p className="page-eyebrow">ELKAMUSAEV EVENTS CENTER</p>
           <h1 className="page-title">КОМАНДНЫЙ ДРАФТ</h1>
@@ -67,6 +69,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
                 : `РАУНД ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "БАН" : "ПИК"}`}
           </strong>
         </div>
+        </div>
       </header>
 
         <div className="app-page-nav draft-header__nav-row">
@@ -76,6 +79,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
               if (mode === "roster") onShowRoster();
               if (mode === "bracket") onShowBracket();
               if (mode === "rating") onShowRating();
+              if (mode === "king") onShowKing();
             }} />
             <button type="button" onClick={() => setIsEditorOpen(true)}>Игроки</button>
             <button className="is-accent" type="button" disabled={isRandomizing} onClick={randomizeTeams}>

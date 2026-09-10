@@ -10,6 +10,7 @@ type RatingBoardProps = {
   onResetRating: () => void;
   onShowBracket: () => void;
   onShowDraft: () => void;
+  onShowKing: () => void;
   onShowRoster: () => void;
   results: RatingResult[];
 };
@@ -39,7 +40,7 @@ function toEntries(results: RatingResult[]) {
   return [...points.values()].sort((left, right) => right.points - left.points || right.wins - left.wins || left.name.localeCompare(right.name, "ru"));
 }
 
-export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowBracket, onShowDraft, onShowRoster, results }: RatingBoardProps) {
+export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowBracket, onShowDraft, onShowKing, onShowRoster, results }: RatingBoardProps) {
   const [selectedMonth, setSelectedMonth] = useState("all");
   const [isResetConfirming, setIsResetConfirming] = useState(false);
   const filteredResults = useMemo(() => selectedMonth === "all" ? results : results.filter((result) => result.month === selectedMonth), [results, selectedMonth]);
@@ -58,10 +59,12 @@ export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowB
 
   return (
     <>
-      <header className="app-page-header app-page-header--single rating-header">
+      <header className="app-page-header rating-header">
+        <div className="app-page-header__top">
         <div><p className="page-eyebrow">ELKAMUSAEV EVENTS CENTER</p><h1 className="page-title">РЕЙТИНГ ИГРОКОВ</h1></div>
+        </div>
       </header>
-      {!isOverlay && <div className="app-page-nav page-mode-row"><ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); }} /></div>}
+      {!isOverlay && <div className="app-page-nav page-mode-row"><ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); if (mode === "king") onShowKing(); }} /></div>}
 
       <section className="rating-panel" aria-label="Рейтинг игроков">
         <div className="rating-panel__toolbar">
