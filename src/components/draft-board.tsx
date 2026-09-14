@@ -82,10 +82,11 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
             <button
               className={`is-mirror ${draft.mirrorEnabled ? "is-on" : ""}`}
               type="button"
+              aria-label={draft.mirrorEnabled ? "Mirror on" : "Mirror off"}
               aria-pressed={draft.mirrorEnabled}
               onClick={draft.toggleMirror}
             >
-              Mirror {draft.mirrorEnabled ? "on" : "off"}
+              Mirror
             </button>
             <button className="is-accent" type="button" disabled={isRandomizing} onClick={randomizeTeams}>
               {isRandomizing ? "Shuffling..." : "Shuffle"}

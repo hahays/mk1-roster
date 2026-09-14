@@ -79,9 +79,21 @@ export function DraftTeamPanel({
         </div>
       </div>
 
-      <div className="draft-team__bans">
-        <span>BANS {bans.length}/3</span>
-        <p>{bans.map(({ fighterId }) => fightersById.get(fighterId)?.name).join(" · ") || "—"}</p>
+      <div className="draft-team__selection-group draft-team__selection-group--bans">
+        <div className="draft-team__selection-title">
+          <span>BANS</span>
+          <strong>{bans.length}/3</strong>
+        </div>
+        <div className="draft-team__slots">
+          {Array.from({ length: 3 }, (_, index) => {
+            const selection = bans[index];
+            return (
+              <span className={selection ? "is-ban" : undefined} key={index}>
+                {selection ? fightersById.get(selection.fighterId)?.name : "—"}
+              </span>
+            );
+          })}
+        </div>
       </div>
 
       <div className="draft-team__pick-portraits" aria-label={`Selected fighters: ${name}`}>

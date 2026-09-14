@@ -718,6 +718,12 @@ button {
   border-color: rgb(110 160 154 / 45%);
 }
 
+.draft-header__controls > button.is-mirror {
+  min-width: 4.6rem;
+  padding-inline: 0.7rem;
+  text-align: center;
+}
+
 .draft-header__controls > button.is-mirror.is-on {
   color: #1b1610;
   background: linear-gradient(135deg, #e0c078, #6a9a8e);
@@ -967,23 +973,15 @@ button {
   border-color: rgb(230 189 114 / 34%);
 }
 
-.draft-team__bans {
-  margin-top: 0.65rem;
-}
-
-.draft-team__bans span {
+.draft-team__selection-group--bans .draft-team__selection-title span,
+.draft-team__selection-group--bans .draft-team__selection-title strong {
   color: #9b4e43;
-  font-size: 0.52rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
 }
 
-.draft-team__bans p {
-  margin: 0.28rem 0 0;
-  overflow: hidden;
-  color: #6f6962;
-  font-size: 0.64rem;
-  line-height: 1.35;
+.draft-team__slots span.is-ban {
+  color: #d7b3ad;
+  background: rgb(155 78 67 / 18%);
+  border-color: rgb(155 78 67 / 30%);
 }
 
 .draft-team__pick-portraits {
