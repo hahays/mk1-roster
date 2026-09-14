@@ -1,4 +1,4 @@
-import type { DraftStep } from "../types/draft";
+import type { DraftSelection, DraftStep, DraftTeamId } from "../types/draft";
 
 const roundTurn = (
   round: DraftStep["round"],
@@ -32,4 +32,39 @@ export function shufflePlayerIndexes(count: number) {
   }
 
   return indexes;
+}
+
+export function getFighterDraftState(selections: DraftSelection[], fighterId: string) {
+  const related = selections.filter((selection) => selection.fighterId === fighterId);
+
+  return {
+    ban: related.find((selection) => selection.action === "ban"),
+    picks: related.filter((selection) => selection.action === "pick"),
+  };
+}
+
+export function canSelectFighter(
+  selections: DraftSelection[],
+  fighterId: string,
+  currentStep: DraftStep | null,
+  mirrorEnabled: boolean,
+) {
+  if (!currentStep) return false;
+
+  const { ban, picks } = getFighterDraftState(selections, fighterId);
+  if (ban || picks.some((selection) => selection.teamId === currentStep.teamId)) return false;
+  if (picks.length === 0) return true;
+  if (currentStep.action === "ban") return false;
+
+  return mirrorEnabled && picks.length === 1;
+}
+
+export function getMirroredFighterIds(selections: DraftSelection[]) {
+  const picksByTeam: Record<DraftTeamId, Set<string>> = { fire: new Set(), shadow: new Set() };
+
+  for (const selection of selections) {
+    if (selection.action === "pick") picksByTeam[selection.teamId].add(selection.fighterId);
+  }
+
+  return new Set([...picksByTeam.fire].filter((fighterId) => picksByTeam.shadow.has(fighterId)));
 }

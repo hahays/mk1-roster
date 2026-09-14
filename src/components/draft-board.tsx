@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { draftRoundRules } from "../lib/draft";
+import { canSelectFighter, draftRoundRules, getFighterDraftState, getMirroredFighterIds } from "../lib/draft";
 import { useDraft } from "../hooks/use-draft";
 import type { Fighter } from "../types/fighter";
 import { DraftFighterCard } from "./draft-fighter-card";
@@ -26,10 +26,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
   const [isRandomizing, setIsRandomizing] = useState(false);
   const randomizeTimer = useRef<number | null>(null);
   const fightersById = useMemo(() => new Map(fighters.map((fighter) => [fighter.id, fighter])), [fighters]);
-  const selectionsByFighter = useMemo(
-    () => new Map(draft.selections.map((selection) => [selection.fighterId, selection])),
-    [draft.selections],
-  );
+  const mirroredIds = useMemo(() => getMirroredFighterIds(draft.selections), [draft.selections]);
   const firePlayers = draft.assignments.fire.map((index) => draft.players[index]);
   const shadowPlayers = draft.assignments.shadow.map((index) => draft.players[index]);
   const currentTeamName = draft.currentStep ? draft.teamNames[draft.currentStep.teamId] : "";
@@ -66,7 +63,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
               ? "ASSIGN PLAYERS"
               : draft.isComplete
                 ? "DRAFT COMPLETE"
-                : `ROUND ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "BAN" : "PICK"}`}
+                : `ROUND ${draft.currentStep?.round} · ${currentTeamName} · ${draft.currentStep?.action === "ban" ? "BAN" : "PICK"}${draft.mirrorEnabled && draft.currentStep?.action === "pick" ? " · MIRROR ON" : ""}`}
           </strong>
         </div>
         </div>
@@ -82,6 +79,14 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
               if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams();
             }} />
             <button type="button" onClick={() => setIsEditorOpen(true)}>Players</button>
+            <button
+              className={`is-mirror ${draft.mirrorEnabled ? "is-on" : ""}`}
+              type="button"
+              aria-pressed={draft.mirrorEnabled}
+              onClick={draft.toggleMirror}
+            >
+              Mirror {draft.mirrorEnabled ? "on" : "off"}
+            </button>
             <button className="is-accent" type="button" disabled={isRandomizing} onClick={randomizeTeams}>
               {isRandomizing ? "Shuffling..." : "Shuffle"}
             </button>
@@ -107,6 +112,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
           name={draft.teamNames.fire}
           players={firePlayers}
           selections={draft.selections}
+          mirroredIds={mirroredIds}
           fightersById={fightersById}
           isActive={draft.currentStep?.teamId === "fire"}
           isDealing={isRandomizing}
@@ -115,17 +121,22 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
 
         <div className="draft-roster" aria-label="Draft fighter roster">
           {fighters.map((fighter, index) => {
-            const selection = selectionsByFighter.get(fighter.id);
+            const { ban, picks } = getFighterDraftState(draft.selections, fighter.id);
+            const canSelect = draft.hasTeams
+              && !draft.isComplete
+              && !isRandomizing
+              && canSelectFighter(draft.selections, fighter.id, draft.currentStep, draft.mirrorEnabled);
 
             return (
               <DraftFighterCard
                 fighter={fighter}
                 index={index}
                 key={fighter.id}
-                selection={selection}
-                teamName={selection ? draft.teamNames[selection.teamId] : undefined}
+                selections={[...picks, ...(ban ? [ban] : [])]}
+                teamNames={draft.teamNames}
                 currentStep={draft.currentStep}
-                disabled={!draft.hasTeams || draft.isComplete || isRandomizing}
+                locked={!draft.hasTeams || draft.isComplete || isRandomizing}
+                canSelect={canSelect}
                 onSelect={draft.selectFighter}
               />
             );
@@ -137,6 +148,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
           name={draft.teamNames.shadow}
           players={shadowPlayers}
           selections={draft.selections}
+          mirroredIds={mirroredIds}
           fightersById={fightersById}
           isActive={draft.currentStep?.teamId === "shadow"}
           isDealing={isRandomizing}

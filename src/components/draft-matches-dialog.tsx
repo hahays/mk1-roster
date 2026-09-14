@@ -15,7 +15,7 @@ type DraftMatchesDialogProps = {
   onClose: () => void;
   onRecordResults: (results: RatingResult[]) => void;
   onSelectParticipant: (matchIndex: number, teamId: DraftTeamId, playerIndex: number) => void;
-  onSelectWinner: (matchIndex: number, fighterId: string) => void;
+  onSelectWinner: (matchIndex: number, teamId: DraftTeamId, fighterId: string) => void;
 };
 
 export function DraftMatchesDialog({
@@ -32,10 +32,10 @@ export function DraftMatchesDialog({
   onSelectParticipant,
   onSelectWinner,
 }: DraftMatchesDialogProps) {
-  const winnerByMatch = new Map(matchWinners.map((winner) => [winner.matchIndex, winner.fighterId]));
+  const winnerByMatch = new Map(matchWinners.map((winner) => [winner.matchIndex, winner]));
   const participantByMatch = new Map(matchParticipants.map((participant) => [participant.matchIndex, participant]));
   const isComplete = matchWinners.length === picks.fire.length;
-  const fireWins = matchWinners.filter((winner) => picks.fire.includes(winner.fighterId)).length;
+  const fireWins = matchWinners.filter((winner) => winner.teamId === "fire").length;
   const shadowWins = matchWinners.length - fireWins;
   const winningTeam = fireWins > shadowWins ? teamNames.fire : teamNames.shadow;
 
@@ -52,11 +52,11 @@ export function DraftMatchesDialog({
 
     const playedAt = new Date().toISOString();
     const month = playedAt.slice(0, 7);
-    const results = picks.fire.flatMap((fireId, matchIndex) => {
+    const results = picks.fire.flatMap((_, matchIndex) => {
       const shadowId = picks.shadow[matchIndex];
-      const winnerId = winnerByMatch.get(matchIndex);
+      const winner = winnerByMatch.get(matchIndex);
       const participant = getParticipant(matchIndex);
-      if (!shadowId || !winnerId) return [];
+      if (!shadowId || !winner) return [];
 
       const firePlayer = teamPlayers.fire[participant.firePlayerIndex];
       const shadowPlayer = teamPlayers.shadow[participant.shadowPlayerIndex];
@@ -66,8 +66,8 @@ export function DraftMatchesDialog({
         sourceId: `${sessionId}:fight:${matchIndex}`,
         playedAt,
         month,
-        winner: winnerId === fireId ? firePlayer : shadowPlayer,
-        loser: winnerId === fireId ? shadowPlayer : firePlayer,
+        winner: winner.teamId === "fire" ? firePlayer : shadowPlayer,
+        loser: winner.teamId === "fire" ? shadowPlayer : firePlayer,
       }];
     });
 
@@ -87,15 +87,16 @@ export function DraftMatchesDialog({
             const shadowId = picks.shadow[index];
             const fire = fightersById.get(fireId);
             const shadow = fightersById.get(shadowId);
-            const winnerId = winnerByMatch.get(index);
+            const winner = winnerByMatch.get(index);
             const participant = getParticipant(index);
             if (!fire || !shadow) return null;
+            const isMirror = fireId === shadowId;
 
             return (
-              <article className="draft-match" key={`${fireId}-${shadowId}`}>
-                <span className="draft-match__number">FIGHT {String(index + 1).padStart(2, "0")}</span>
+              <article className={`draft-match ${isMirror ? "is-mirror" : ""}`} key={`fight-${index}`}>
+                <span className="draft-match__number">FIGHT {String(index + 1).padStart(2, "0")}{isMirror ? <em>MIRROR</em> : null}</span>
                 <div className="draft-match__side">
-                  <button className={`draft-match__fighter draft-match__fighter--fire ${winnerId === fire.id ? "is-winner" : winnerId ? "is-defeated" : ""}`} disabled={ratingRecorded} type="button" onClick={() => onSelectWinner(index, fire.id)}>
+                  <button className={`draft-match__fighter draft-match__fighter--fire ${winner?.teamId === "fire" ? "is-winner" : winner ? "is-defeated" : ""}`} disabled={ratingRecorded} type="button" onClick={() => onSelectWinner(index, "fire", fire.id)}>
                     <img alt="" src={getAssetUrl(fire.image)} />
                     <span>{fire.name}</span>
                     <small>{teamNames.fire}</small>
@@ -106,7 +107,7 @@ export function DraftMatchesDialog({
                 </div>
                 <b>VS</b>
                 <div className="draft-match__side">
-                  <button className={`draft-match__fighter draft-match__fighter--shadow ${winnerId === shadow.id ? "is-winner" : winnerId ? "is-defeated" : ""}`} disabled={ratingRecorded} type="button" onClick={() => onSelectWinner(index, shadow.id)}>
+                  <button className={`draft-match__fighter draft-match__fighter--shadow ${winner?.teamId === "shadow" ? "is-winner" : winner ? "is-defeated" : ""}`} disabled={ratingRecorded} type="button" onClick={() => onSelectWinner(index, "shadow", shadow.id)}>
                     <img alt="" src={getAssetUrl(shadow.image)} />
                     <span>{shadow.name}</span>
                     <small>{teamNames.shadow}</small>

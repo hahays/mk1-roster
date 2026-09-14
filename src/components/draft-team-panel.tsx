@@ -8,6 +8,7 @@ type DraftTeamPanelProps = {
   name: string;
   players: string[];
   selections: DraftSelection[];
+  mirroredIds: Set<string>;
   fightersById: Map<string, Fighter>;
   isActive: boolean;
   isDealing: boolean;
@@ -23,6 +24,7 @@ export function DraftTeamPanel({
   name,
   players,
   selections,
+  mirroredIds,
   fightersById,
   isActive,
   isDealing,
@@ -66,7 +68,13 @@ export function DraftTeamPanel({
         <div className="draft-team__slots">
           {Array.from({ length: 5 }, (_, index) => {
             const selection = picks[index];
-            return <span key={index}>{selection ? fightersById.get(selection.fighterId)?.name : "—"}</span>;
+            const isMirror = Boolean(selection && mirroredIds.has(selection.fighterId));
+            return (
+              <span className={isMirror ? "is-mirror" : undefined} key={index}>
+                {selection ? fightersById.get(selection.fighterId)?.name : "—"}
+                {isMirror ? " · M" : ""}
+              </span>
+            );
           })}
         </div>
       </div>
@@ -79,7 +87,13 @@ export function DraftTeamPanel({
       <div className="draft-team__pick-portraits" aria-label={`Selected fighters: ${name}`}>
         {picks.map(({ fighterId }) => {
           const fighter = fightersById.get(fighterId);
-          return fighter ? <img alt={fighter.name} key={fighterId} src={getAssetUrl(fighter.image)} title={fighter.name} /> : null;
+          const isMirror = mirroredIds.has(fighterId);
+          return fighter ? (
+            <span className={`draft-team__portrait ${isMirror ? "is-mirror" : ""}`} key={fighterId} title={isMirror ? `${fighter.name} · MIRROR` : fighter.name}>
+              <img alt={fighter.name} src={getAssetUrl(fighter.image)} />
+              {isMirror && <em>M</em>}
+            </span>
+          ) : null;
         })}
       </div>
     </aside>

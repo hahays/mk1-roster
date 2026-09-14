@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-import { draftSteps, shufflePlayerIndexes } from "../lib/draft";
+import { useEffect, useState } from "react";
+import { canSelectFighter, draftSteps, shufflePlayerIndexes } from "../lib/draft";
 import type { DraftAssignments, DraftMatchParticipants, DraftMatchWinner, DraftSelection, DraftTeamId, DraftTeamNames } from "../types/draft";
 
-const STORAGE_KEY = "mk1-draft-state:v3";
+const STORAGE_KEY = "mk1-draft-state:v4";
 const PLAYER_COUNT = 4;
 
 type DraftState = {
@@ -14,6 +14,7 @@ type DraftState = {
   matchWinners: DraftMatchWinner[];
   matchParticipants: DraftMatchParticipants[];
   ratingRecorded: boolean;
+  mirrorEnabled: boolean;
 };
 
 function createSessionId() {
@@ -29,11 +30,31 @@ const defaultState: DraftState = {
   matchWinners: [],
   matchParticipants: [],
   ratingRecorded: false,
+  mirrorEnabled: true,
 };
+
+function readMatchWinners(stored: unknown, selections: DraftSelection[]): DraftMatchWinner[] {
+  if (!Array.isArray(stored)) return [];
+
+  return stored.flatMap((winner) => {
+    if (!winner || typeof winner !== "object") return [];
+
+    const record = winner as { matchIndex?: unknown; fighterId?: unknown; teamId?: unknown };
+    if (typeof record.matchIndex !== "number" || typeof record.fighterId !== "string") return [];
+
+    const teamId = record.teamId === "fire" || record.teamId === "shadow"
+      ? record.teamId
+      : selections.find((selection) => selection.action === "pick" && selection.fighterId === record.fighterId)?.teamId;
+
+    return teamId ? [{ matchIndex: record.matchIndex, fighterId: record.fighterId, teamId }] : [];
+  });
+}
 
 function readDraftState(): DraftState {
   try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Partial<DraftState> | null;
+    const stored = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem("mk1-draft-state:v3") ?? "null",
+    ) as Partial<DraftState> | null;
 
     if (!stored || !Array.isArray(stored.players) || stored.players.length !== PLAYER_COUNT) {
       return defaultState;
@@ -51,9 +72,10 @@ function readDraftState(): DraftState {
         shadow: Array.isArray(stored.assignments?.shadow) ? stored.assignments.shadow : [],
       },
       selections: Array.isArray(stored.selections) ? stored.selections.slice(0, draftSteps.length) : [],
-      matchWinners: Array.isArray(stored.matchWinners) ? stored.matchWinners : [],
+      matchWinners: readMatchWinners(stored.matchWinners, Array.isArray(stored.selections) ? stored.selections : []),
       matchParticipants: Array.isArray(stored.matchParticipants) ? stored.matchParticipants : [],
       ratingRecorded: Boolean(stored.ratingRecorded),
+      mirrorEnabled: stored.mirrorEnabled !== false,
     };
   } catch {
     return defaultState;
@@ -65,10 +87,6 @@ export function useDraft() {
   const [shuffleVersion, setShuffleVersion] = useState(0);
   const currentStep = draftSteps[state.selections.length] ?? null;
   const hasTeams = state.assignments.fire.length === 2 && state.assignments.shadow.length === 2;
-  const usedFighterIds = useMemo(
-    () => new Set(state.selections.map(({ fighterId }) => fighterId)),
-    [state.selections],
-  );
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -103,12 +121,18 @@ export function useDraft() {
   }
 
   function selectFighter(fighterId: string) {
-    if (!hasTeams || !currentStep || usedFighterIds.has(fighterId)) return;
+    if (!hasTeams || !currentStep || !canSelectFighter(state.selections, fighterId, currentStep, state.mirrorEnabled)) {
+      return;
+    }
 
     setState((current) => ({
       ...current,
       selections: [...current.selections, { ...currentStep, fighterId }],
     }));
+  }
+
+  function toggleMirror() {
+    setState((current) => ({ ...current, mirrorEnabled: !current.mirrorEnabled }));
   }
 
   function undo() {
@@ -132,14 +156,14 @@ export function useDraft() {
     }));
   }
 
-  function selectMatchWinner(matchIndex: number, fighterId: string) {
+  function selectMatchWinner(matchIndex: number, teamId: DraftTeamId, fighterId: string) {
     if (state.ratingRecorded) return;
 
     setState((current) => ({
       ...current,
       matchWinners: [
         ...current.matchWinners.filter((winner) => winner.matchIndex !== matchIndex),
-        { matchIndex, fighterId },
+        { matchIndex, fighterId, teamId },
       ],
     }));
   }
@@ -175,10 +199,10 @@ export function useDraft() {
     hasTeams,
     isComplete: state.selections.length === draftSteps.length,
     shuffleVersion,
-    usedFighterIds,
     randomizeTeams,
     resetDraft,
     selectFighter,
+    toggleMirror,
     undo,
     updateSetup,
     selectMatchWinner,

@@ -19,6 +19,7 @@ export type DraftAssignments = Record<DraftTeamId, number[]>;
 export type DraftMatchWinner = {
   matchIndex: number;
   fighterId: string;
+  teamId: DraftTeamId;
 };
 
 export type DraftMatchParticipants = {
