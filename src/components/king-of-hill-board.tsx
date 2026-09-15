@@ -68,13 +68,13 @@ export function KingOfHillBoard({ fighters, isOverlay, onChangeMode }: Props) {
       </header>
       {!isOverlay && <div className="app-page-nav page-mode-row"><ModeSwitch activeMode="king" onChange={onChangeMode} /></div>}
       <section className={`king-board ${isOverlay ? "king-board--overlay" : ""}`} aria-label="Money King of the Hill">
-        <div className="king-arena">
-          {renderPlayer(0)}
-          <div className="king-challengers">{[1, 2, 3].map(renderPlayer)}</div>
-        </div>
         <div className="king-prize">
           <label htmlFor="king-prize-pool"><span>PRIZE POOL</span></label>
           <input id="king-prize-pool" aria-label="Prize pool" placeholder="Enter amount" value={state.prizePool} maxLength={40} readOnly={isOverlay} onChange={(event) => setPrizePool(event.target.value)} autoComplete="off" />
+        </div>
+        <div className="king-arena">
+          {renderPlayer(0)}
+          <div className="king-challengers">{[1, 2, 3].map(renderPlayer)}</div>
         </div>
       </section>
       {editingSlot !== null && <CharacterPickerDialog fighters={fighters} selectedId={state.players[editingSlot].fighterId} onSelect={(fighterId) => { updatePlayer(editingSlot, { fighterId }); setEditingSlot(null); }} onClose={() => setEditingSlot(null)} />}
