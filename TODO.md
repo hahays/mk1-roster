@@ -2,7 +2,7 @@
 
 ## Repository contributors
 
-- [x] Удалить `Co-authored-by: Cursor <cursoragent@cursor.com>` из двух коммитов истории `main`. Исправленные коммиты: `9e3cc4b` и `6d1b714`. Локальная резервная ветка прежней истории: `backup/main-before-cursor-removal-20260926`.
+- [ ] Дождаться обновления блока GitHub Contributors: после переписывания истории `main` он всё ещё показывает Cursor Agent, хотя Contributors API возвращает только `hahays`. GitHub указывает задержку обновления около 24 часов; если после этого блок не исправится, обратиться в GitHub Support. Строки `Co-authored-by: Cursor <cursoragent@cursor.com>` удалены из коммитов (новые хеши `9e3cc4b` и `6d1b714`). Локальная резервная ветка прежней истории: `backup/main-before-cursor-removal-20260926`.
 
 ## Tournament statistics
 
