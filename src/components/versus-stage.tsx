@@ -43,6 +43,7 @@ export function VersusStage({ left, right, leftName, rightName, playToken, onSta
           root.style.setProperty("--recoil", `${frame.recoil * 28}px`);
           root.style.setProperty("--plate-tilt", `${frame.recoil * 3}deg`);
           root.style.setProperty("--energy", `${frame.energy}`);
+          root.style.setProperty("--vs-reveal", `${frame.vs}`);
           root.style.setProperty("--ring-scale", `${frame.burst >= 0 ? 0.3 + frame.burst * 5 : 0}`);
           root.style.setProperty("--ring-opacity", `${frame.burst >= 0 ? Math.max(0, 1 - frame.burst / 0.6) : 0}`);
           root.dataset.phase = frame.finished ? "hold" : frame.burst >= 0 ? "impact" : "enter";

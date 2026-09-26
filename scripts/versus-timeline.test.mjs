@@ -52,3 +52,12 @@ test("plates touch on impact, recoil apart, and finish at rest", () => {
   assert.equal(sampleIntro(INTRO_DURATION).recoil, 0);
   assert.equal(sampleIntro(INTRO_DURATION).energy, 0);
 });
+
+test("VS appears as the plates separate after impact", () => {
+  assert.equal(sampleIntro(null).vs, 1);
+  assert.equal(sampleIntro(IMPACT_TIME - 0.001).vs, 0);
+  assert.equal(sampleIntro(IMPACT_TIME).vs, 0);
+  assert.ok(sampleIntro(IMPACT_TIME + 0.2).vs > 0);
+  assert.equal(sampleIntro(IMPACT_TIME + 0.45).vs, 1);
+  assert.equal(sampleIntro(INTRO_DURATION).vs, 1);
+});

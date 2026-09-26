@@ -1,5 +1,9 @@
 # TODO
 
+## Repository contributors
+
+- [x] Удалить `Co-authored-by: Cursor <cursoragent@cursor.com>` из двух коммитов истории `main`. Исправленные коммиты: `9e3cc4b` и `6d1b714`. Локальная резервная ветка прежней истории: `backup/main-before-cursor-removal-20260926`.
+
 ## Tournament statistics
 
 - Реализовать таблицу лидеров игроков и команд.
