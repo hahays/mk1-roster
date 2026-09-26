@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { TeamsBoard } from "./components/teams-board";
 import rosterData from "./data/roster.json";
 import { DraftBoard } from "./components/draft-board";
@@ -15,6 +15,7 @@ import type { Fighter, RosterFilter } from "./types/fighter";
 
 const roster = rosterData as Fighter[];
 const fighterIds = roster.map(({ id }) => id);
+const VersusBoard = lazy(() => import("./components/versus-board").then((module) => ({ default: module.VersusBoard })));
 
 function readPageSettings() {
   const params = new URLSearchParams(window.location.search);
@@ -26,7 +27,7 @@ function readPageSettings() {
 
   return {
     filter,
-    mode: ["draft", "bracket", "rating", "king", "teams"].includes(params.get("mode") ?? "")
+    mode: ["draft", "bracket", "rating", "king", "teams", "versus"].includes(params.get("mode") ?? "")
       ? params.get("mode") as AppMode
       : "roster" as const,
     isOverlay: params.get("overlay") === "1",
@@ -91,12 +92,17 @@ function App() {
       data-view={mode !== "roster" ? mode : filter}
     >
       <div className="app-shell__content relative z-10 flex min-h-screen w-full flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
-        {mode === "teams" ? (
+        {mode === "versus" ? (
+          <Suspense fallback={<p role="status">Loading Versus…</p>}>
+            <VersusBoard fighters={roster.filter((fighter) => fighter.group === "fighter")} isOverlay={pageSettings.isOverlay} onChangeMode={changeMode} />
+          </Suspense>
+        ) : mode === "teams" ? (
           <TeamsBoard isOverlay={pageSettings.isOverlay} onChangeMode={changeMode} />
         ) : mode === "king" ? (
           <KingOfHillBoard fighters={roster.filter((fighter) => fighter.group === "fighter")} isOverlay={pageSettings.isOverlay} onChangeMode={changeMode} />
         ) : mode === "draft" ? (
           <DraftBoard
+            onShowVersus={() => changeMode("versus")}
             onShowTeams={() => changeMode("teams")}
             onShowKing={() => changeMode("king")}
             fighters={roster.filter((fighter) => fighter.group === "fighter")}
@@ -108,6 +114,7 @@ function App() {
           />
         ) : mode === "bracket" ? (
           <BracketBoard
+            onShowVersus={() => changeMode("versus")}
             onShowTeams={() => changeMode("teams")}
             onShowKing={() => changeMode("king")}
             isOverlay={pageSettings.isOverlay}
@@ -118,6 +125,7 @@ function App() {
           />
         ) : mode === "rating" ? (
           <RatingBoard
+            onShowVersus={() => changeMode("versus")}
             onShowTeams={() => changeMode("teams")}
             onShowKing={() => changeMode("king")}
             entries={rating.entries}
@@ -132,6 +140,7 @@ function App() {
         ) : (
           <>
             <RosterControls
+              onShowVersus={() => changeMode("versus")}
               onShowTeams={() => changeMode("teams")}
               onShowKing={() => changeMode("king")}
               activeFilter={filter}

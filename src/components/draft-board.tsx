@@ -16,10 +16,11 @@ type DraftBoardProps = {
   onShowRating: () => void;
   onShowTeams: () => void; onShowKing: () => void;
   onShowRoster: () => void;
+  onShowVersus: () => void;
   onRecordRating: (results: RatingResult[]) => void;
 };
 
-export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowTeams, onShowKing, onShowRoster, onRecordRating }: DraftBoardProps) {
+export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, onShowTeams, onShowKing, onShowRoster, onShowVersus, onRecordRating }: DraftBoardProps) {
   const draft = useDraft();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isMatchesOpen, setIsMatchesOpen] = useState(false);
@@ -74,6 +75,7 @@ export function DraftBoard({ fighters, isOverlay, onShowBracket, onShowRating, o
             <div className="draft-header__controls">
             <ModeSwitch activeMode="draft" onChange={(mode) => {
               if (mode === "roster") onShowRoster();
+              if (mode === "versus") onShowVersus();
               if (mode === "bracket") onShowBracket();
               if (mode === "rating") onShowRating();
               if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams();

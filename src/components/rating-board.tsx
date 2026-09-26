@@ -12,6 +12,7 @@ type RatingBoardProps = {
   onShowDraft: () => void;
   onShowTeams: () => void; onShowKing: () => void;
   onShowRoster: () => void;
+  onShowVersus: () => void;
   results: RatingResult[];
 };
 
@@ -40,7 +41,7 @@ function toEntries(results: RatingResult[]) {
   return [...points.values()].sort((left, right) => right.points - left.points || right.wins - left.wins || left.name.localeCompare(right.name, "en"));
 }
 
-export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowBracket, onShowDraft, onShowTeams, onShowKing, onShowRoster, results }: RatingBoardProps) {
+export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowBracket, onShowDraft, onShowTeams, onShowKing, onShowRoster, onShowVersus, results }: RatingBoardProps) {
   const [selectedMonth, setSelectedMonth] = useState("all");
   const [isResetConfirming, setIsResetConfirming] = useState(false);
   const filteredResults = useMemo(() => selectedMonth === "all" ? results : results.filter((result) => result.month === selectedMonth), [results, selectedMonth]);
@@ -64,7 +65,7 @@ export function RatingBoard({ entries, isOverlay, months, onResetRating, onShowB
         <div><p className="page-eyebrow">ELKAMUSAEV EVENTS CENTER</p><h1 className="page-title">PLAYER RATING</h1></div>
         </div>
       </header>
-      {!isOverlay && <div className="app-page-nav page-mode-row"><ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams(); }} /></div>}
+      {!isOverlay && <div className="app-page-nav page-mode-row"><ModeSwitch activeMode="rating" onChange={(mode) => { if (mode === "roster") onShowRoster(); if (mode === "draft") onShowDraft(); if (mode === "bracket") onShowBracket(); if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams(); if (mode === "versus") onShowVersus(); }} /></div>}
 
       <section className="rating-panel" aria-label="Player rating">
         <div className="rating-panel__toolbar">

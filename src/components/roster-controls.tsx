@@ -11,6 +11,7 @@ type RosterControlsProps = {
   onShowBracket: () => void;
   onShowDraft: () => void;
   onShowRating: () => void;
+  onShowVersus: () => void;
   totalCount: number;
 };
 
@@ -30,6 +31,7 @@ export function RosterControls({
   onShowBracket,
   onShowDraft,
   onShowRating,
+  onShowVersus,
   totalCount,
 }: RosterControlsProps) {
   return (
@@ -64,6 +66,7 @@ export function RosterControls({
           <div className="flex flex-wrap items-center gap-3">
             <ModeSwitch activeMode="roster" onChange={(mode) => {
               if (mode === "draft") onShowDraft();
+              if (mode === "versus") onShowVersus();
               if (mode === "bracket") onShowBracket();
               if (mode === "rating") onShowRating();
               if (mode === "king") onShowKing(); if (mode === "teams") onShowTeams();

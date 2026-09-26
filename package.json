@@ -8,11 +8,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "test:versus": "node --experimental-strip-types --test scripts/versus-timeline.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -20,6 +22,7 @@
     "@types/node": "^26.4.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
+    "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.9.1",
     "eslint-plugin-react-hooks": "^7.1.1",
