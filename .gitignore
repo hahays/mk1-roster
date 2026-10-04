@@ -5,3 +5,6 @@ roster-source.html
 *.local
 .DS_Store
 Thumbs.db
+
+# Local project notes and plans
+/*.[mM][dD]
