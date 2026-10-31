@@ -6,15 +6,19 @@ import { BracketBoard } from "./components/bracket-board";
 import { RatingBoard } from "./components/rating-board";
 import { KingOfHillBoard } from "./components/king-of-hill-board";
 import { FighterCard } from "./components/fighter-card";
+import { KameoRosters } from "./components/kameo-rosters";
 import { ResetDialog } from "./components/reset-dialog";
 import { RosterControls } from "./components/roster-controls";
 import { useEliminatedFighters } from "./hooks/use-eliminated-fighters";
+import { useKameoBans } from "./hooks/use-kameo-bans";
 import { useRating } from "./hooks/use-rating";
 import type { AppMode } from "./components/mode-switch";
 import type { Fighter, RosterFilter } from "./types/fighter";
 
 const roster = rosterData as Fighter[];
 const fighterIds = roster.map(({ id }) => id);
+const kameos = roster.filter((fighter) => fighter.group === "kameo");
+const kameoIds = kameos.map(({ id }) => id);
 const VersusBoard = lazy(() => import("./components/versus-board").then((module) => ({ default: module.VersusBoard })));
 
 function readPageSettings() {
@@ -42,6 +46,9 @@ function App() {
   const [mode, setMode] = useState<AppMode>(pageSettings.mode);
   const [isResetOpen, setIsResetOpen] = useState(false);
   const { eliminated, reset, toggle } = useEliminatedFighters(fighterIds);
+  const kameoBans = useKameoBans(kameoIds);
+  const isKameos = filter === "kameo";
+  const eliminatedCount = isKameos ? kameoBans.count : eliminated.size;
   const rating = useRating();
   const visibleRoster = filter === "all" ? roster : roster.filter((fighter) => fighter.group === filter);
 
@@ -52,7 +59,7 @@ function App() {
         setIsResetOpen(false);
       }
 
-      if (event.shiftKey && event.key.toLowerCase() === "r" && eliminated.size > 0) {
+      if (event.shiftKey && event.key.toLowerCase() === "r" && eliminatedCount > 0) {
         event.preventDefault();
         setIsResetOpen(true);
       }
@@ -66,10 +73,11 @@ function App() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [eliminated.size]);
+  }, [eliminatedCount]);
 
   function confirmReset() {
-    reset();
+    if (isKameos) kameoBans.reset();
+    else reset();
     setIsResetOpen(false);
   }
 
@@ -144,36 +152,40 @@ function App() {
               onShowTeams={() => changeMode("teams")}
               onShowKing={() => changeMode("king")}
               activeFilter={filter}
-              eliminatedCount={eliminated.size}
+              eliminatedCount={eliminatedCount}
               isOverlay={pageSettings.isOverlay}
               onFilterChange={setFilter}
               onResetRequest={() => setIsResetOpen(true)}
               onShowBracket={() => changeMode("bracket")}
               onShowDraft={() => changeMode("draft")}
               onShowRating={() => changeMode("rating")}
-              totalCount={roster.length}
+              totalCount={isKameos ? kameos.length * 2 : roster.length}
             />
 
-            <section
-              className="roster-grid mt-3 flex-1 sm:mt-4"
-              aria-label={filter === "fighter" ? "Fighters" : filter === "kameo" ? "Kameo fighters" : "All fighters"}
-            >
-              {visibleRoster.map((fighter, index) => (
-                <FighterCard
-                  fighter={fighter}
-                  index={index}
-                  isEliminated={eliminated.has(fighter.id)}
-                  key={fighter.id}
-                  onToggle={toggle}
-                />
-              ))}
-            </section>
+            {isKameos ? (
+              <KameoRosters fighters={kameos} bans={kameoBans.bans} onToggle={kameoBans.toggle} />
+            ) : (
+              <section
+                className="roster-grid mt-3 flex-1 sm:mt-4"
+                aria-label={filter === "fighter" ? "Fighters" : "All fighters"}
+              >
+                {visibleRoster.map((fighter, index) => (
+                  <FighterCard
+                    fighter={fighter}
+                    index={index}
+                    isEliminated={eliminated.has(fighter.id)}
+                    key={fighter.id}
+                    onToggle={toggle}
+                  />
+                ))}
+              </section>
+            )}
           </>
         )}
 
       </div>
 
-      <ResetDialog isOpen={isResetOpen} onCancel={() => setIsResetOpen(false)} onConfirm={confirmReset} />
+      <ResetDialog isOpen={isResetOpen} onCancel={() => setIsResetOpen(false)} onConfirm={confirmReset} isKameos={isKameos} />
     </main>
   );
 }

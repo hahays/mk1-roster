@@ -8,14 +8,15 @@ type FighterCardProps = {
   index: number;
   isEliminated: boolean;
   onToggle: (id: string) => void;
+  eliminationLabel?: "DEAD" | "BANNED";
 };
 
 type CardStyle = CSSProperties & {
   "--card-index": number;
 };
 
-export function FighterCard({ fighter, index, isEliminated, onToggle }: FighterCardProps) {
-  const action = isEliminated ? "Return" : "Eliminate";
+export function FighterCard({ fighter, index, isEliminated, onToggle, eliminationLabel = "DEAD" }: FighterCardProps) {
+  const action = eliminationLabel === "BANNED" ? (isEliminated ? "Unban" : "Ban") : (isEliminated ? "Return" : "Eliminate");
   const style: CardStyle = { "--card-index": index };
 
   return (
@@ -38,7 +39,7 @@ export function FighterCard({ fighter, index, isEliminated, onToggle }: FighterC
           draggable="false"
         />
         <span className="fighter-card__blood" aria-hidden="true" />
-        <DeathMark />
+        <DeathMark label={eliminationLabel} />
         {fighter.group === "kameo" && <span className="fighter-card__type">KAMEO</span>}
         <span className="fighter-card__name">{fighter.name}</span>
       </span>

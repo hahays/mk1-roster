@@ -2,9 +2,10 @@ type ResetDialogProps = {
   isOpen: boolean;
   onCancel: () => void;
   onConfirm: () => void;
+  isKameos?: boolean;
 };
 
-export function ResetDialog({ isOpen, onCancel, onConfirm }: ResetDialogProps) {
+export function ResetDialog({ isOpen, onCancel, onConfirm, isKameos = false }: ResetDialogProps) {
   if (!isOpen) {
     return null;
   }
@@ -20,10 +21,10 @@ export function ResetDialog({ isOpen, onCancel, onConfirm }: ResetDialogProps) {
       >
         <p className="mb-2 text-[0.65rem] font-bold tracking-[0.3em] text-red-500">CONFIRM ACTION</p>
         <h2 className="font-display text-3xl text-stone-100" id="reset-title">
-          Reset the roster?
+          {isKameos ? "Reset kameo bans?" : "Reset the roster?"}
         </h2>
         <p className="mt-3 max-w-sm text-sm leading-relaxed text-stone-400">
-          Every eliminated fighter will return to the roster.
+          {isKameos ? "Kameo bans for both sides will be cleared." : "Every eliminated fighter will return to the roster."}
         </p>
         <div className="mt-7 flex justify-end gap-3">
           <button className="dialog-button" type="button" onClick={onCancel} autoFocus>

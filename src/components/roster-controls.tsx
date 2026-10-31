@@ -47,17 +47,19 @@ export function RosterControls({
         </h1>
         </div>
 
-        <div className="flex shrink-0 items-center gap-3">
-        <div className="text-right">
-          <span className="block text-[0.55rem] font-bold tracking-[0.22em] text-stone-500 sm:text-[0.65rem]">
-            ELIMINATED
-          </span>
-          <span className="font-display text-xl leading-none text-red-500 sm:text-3xl">
-            {eliminatedCount}
-            <span className="text-sm text-stone-600 sm:text-base"> / {totalCount}</span>
-          </span>
-        </div>
-        </div>
+        {activeFilter !== "kameo" && (
+          <div className="flex shrink-0 items-center gap-3">
+            <div className="text-right">
+              <span className="block text-[0.55rem] font-bold tracking-[0.22em] text-stone-500 sm:text-[0.65rem]">
+                ELIMINATED
+              </span>
+              <span className="font-display text-xl leading-none text-red-500 sm:text-3xl">
+                {eliminatedCount}
+                <span className="text-sm text-stone-600 sm:text-base"> / {totalCount}</span>
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </header>
 

@@ -1,4 +1,4 @@
-export function DeathMark() {
+export function DeathMark({ label = "DEAD" }: { label?: string }) {
   return (
     <div className="death-mark" aria-hidden="true">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -10,7 +10,7 @@ export function DeathMark() {
         <circle className="death-mark__drop death-mark__drop--two" cx="82" cy="68" r="2.5" />
         <circle className="death-mark__drop death-mark__drop--three" cx="61" cy="89" r="2" />
       </svg>
-      <span className="death-mark__label">DEAD</span>
+      <span className="death-mark__label">{label}</span>
     </div>
   );
 }
